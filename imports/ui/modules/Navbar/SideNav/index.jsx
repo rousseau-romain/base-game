@@ -1,4 +1,6 @@
-import React from 'react';
+// import React from 'react';
+import React, { useState } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
@@ -11,28 +13,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SwipeableTemporaryDrawer() {
+ const SwipeableTemporaryDrawer = (props) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    left: false,
-  });
-
-  const toggleDrawer = (side, open) => event => {
-    if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [side]: open });
-  };
+  const [left, setLeft] = useState(props.isOpen)
+  
+  const toggleSideNav = (isOpen) => event => {
+    setLeft(isOpen)
+  }
 
   return (
     <div> 
       <SwipeableDrawer
-        open={state.left}
-        onClose={toggleDrawer('left', false)}
-        onOpen={toggleDrawer('left', true)}
+        open={left}
+        onClose={toggleSideNav(false)}
+        onOpen={toggleSideNav(true)}
       >
+        <h3>zdsfzsfdf</h3>
       </SwipeableDrawer>
     </div>
   );
 }
+
+export default SwipeableTemporaryDrawer

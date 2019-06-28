@@ -68,9 +68,6 @@ const Header = (props) => {
   }));
 
   const classes = useStyles();
-  test = () => {
-    console.log('zeezf')
-  }
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -80,8 +77,7 @@ const Header = (props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
-            onClick={props.plus}
-            onClick={test}
+            onClick={props.toggleHeader}
           >
             <MenuIcon />
           </IconButton>
