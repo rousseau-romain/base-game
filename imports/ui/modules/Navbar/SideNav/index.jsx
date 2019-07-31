@@ -1,34 +1,27 @@
-// import React from 'react';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
-const useStyles = makeStyles({
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-});
+import { SidebarContext } from "/imports/ui/context";
 
- const SwipeableTemporaryDrawer = (props) => {
-  const classes = useStyles();
-  const [left, setLeft] = useState(props.isOpen)
+const SwipeableTemporaryDrawer = ({children}) => {
+  const [isOpen, setIsOpen] = useState(false)
   
-  const toggleSideNav = (isOpen) => event => {
-    setLeft(isOpen)
-  }
+  const { sidebarIsOpen } = useContext(SidebarContext);
+
+  useEffect(() => toggleSideNav(), [sidebarIsOpen],);
+
+  const toggleSideNav = () => setIsOpen(!isOpen);
 
   return (
     <div> 
       <SwipeableDrawer
-        open={left}
-        onClose={toggleSideNav(false)}
-        onOpen={toggleSideNav(true)}
+        open={isOpen} 
+        onClose={()=>{toggleSideNav()}}
+        onOpen={()=>{}}
       >
         <h3>zdsfzsfdf</h3>
+        {children}
       </SwipeableDrawer>
     </div>
   );

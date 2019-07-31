@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,11 +8,9 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+import { SidebarContext } from "/imports/ui/context";
 
-
-
-
-const Header = (props) => {
+const Header = () => {
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -67,6 +65,11 @@ const Header = (props) => {
     },
   }));
 
+  const Context = useContext(SidebarContext);
+
+
+  const { toggleTest } = Context;
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -77,7 +80,7 @@ const Header = (props) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
-            onClick={props.toggleHeader}
+            onClick={() => toggleTest()}
           >
             <MenuIcon />
           </IconButton>
