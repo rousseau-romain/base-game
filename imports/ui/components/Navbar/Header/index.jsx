@@ -1,4 +1,4 @@
-import React,{useContext} from 'react';
+import React, { useContext } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,10 +8,9 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { SidebarContext } from "/imports/ui/context";
+import { SidebarContext } from '/imports/ui/context';
 
 const Header = () => {
-
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -104,5 +103,5 @@ const Header = () => {
       </AppBar>
     </div>
   );
-}
-export default Header
+};
+export default Header;
