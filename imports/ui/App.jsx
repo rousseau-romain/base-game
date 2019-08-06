@@ -1,8 +1,13 @@
 import React from 'react';
-import NavBar from './modules/Navbar'
+import { SidebarContextProvider } from './context';
+
+// import NavBar from './modules/Navbar';
+
 const App = () => (
   <div>
-    <NavBar></NavBar>
+    <SidebarContextProvider sidebarIsOpen>
+      {/* <NavBar /> */}
+    </SidebarContextProvider>
   </div>
 );
 
