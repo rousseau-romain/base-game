@@ -1,13 +1,13 @@
-import React, { createContext, useState } from "react";
-import PropTypes from "prop-types";
+import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const Context = createContext({});
 
-export const Provider = props => {
+export const Provider = (props) => {
   // Initial values are obtained from the props
   const {
     sidebarIsOpen: initialTest,
-    children
+    children,
   } = props;
 
   // Use State to keep the values
@@ -18,7 +18,7 @@ export const Provider = props => {
   // Make the context object:
   const sidebarContext = {
     sidebarIsOpen,
-    toggleTest
+    toggleTest,
   };
 
   // pass the value in provider and return
@@ -28,9 +28,9 @@ export const Provider = props => {
 export const { Consumer } = Context;
 
 Provider.propTypes = {
-  sidebarIsOpen: PropTypes.bool
+  sidebarIsOpen: PropTypes.bool,
 };
 
 Provider.defaultProps = {
-  sidebarIsOpen: false
+  sidebarIsOpen: false,
 };
