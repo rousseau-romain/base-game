@@ -5,7 +5,7 @@ import { SidebarContextProvider } from './context';
 
 const App = () => (
   <div>
-    <SidebarContextProvider sidebarIsOpen>
+    <SidebarContextProvider>
       {/* <NavBar /> */}
     </SidebarContextProvider>
   </div>

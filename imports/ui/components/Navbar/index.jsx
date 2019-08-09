@@ -3,10 +3,11 @@ import Header from './Header';
 import Sidenav from './SideNav';
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleHeader = useCallback(() => {
-    isOpen === true ? setIsOpen(false) : setIsOpen(true);
+    if (isOpen === true) setIsOpen(false);
+    else setIsOpen(true);
   }, [isOpen]);
   return (
     <div>

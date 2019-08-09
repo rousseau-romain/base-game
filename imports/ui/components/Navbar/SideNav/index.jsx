@@ -5,7 +5,8 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import { SidebarContext } from '/imports/ui/context';
 
 const SwipeableTemporaryDrawer = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  // ToFix: useEffect trigger toggle sidenav so isOpen change instant true -> false
+  const [isOpen, setIsOpen] = useState(true);
 
   const { sidebarIsOpen } = useContext(SidebarContext);
 

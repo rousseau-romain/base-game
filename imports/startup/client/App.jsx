@@ -21,7 +21,7 @@ import {
 } from '/imports/ui/modules/Accounts';
 
 const App = () => (
-  <SidebarContextProvider sidebarIsOpen>
+  <SidebarContextProvider>
     <Router>
       <Switch>
         <NoLogged path="/signin" component={Signin} />
