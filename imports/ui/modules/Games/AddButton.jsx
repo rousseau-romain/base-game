@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const AddButon = styled(Fab)`
   &&&{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     right: 20px;
   }
