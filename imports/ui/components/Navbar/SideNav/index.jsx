@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
 import { SidebarContext } from '/imports/ui/context';
+import MenuList from '../MenuList';
 
 const SwipeableTemporaryDrawer = ({ children }) => {
   // ToFix: useEffect trigger toggle sidenav so isOpen change instant true -> false
@@ -14,7 +15,6 @@ const SwipeableTemporaryDrawer = ({ children }) => {
 
   useEffect(() => toggleSideNav(), [sidebarIsOpen]);
 
-
   return (
     <div>
       <SwipeableDrawer
@@ -22,7 +22,7 @@ const SwipeableTemporaryDrawer = ({ children }) => {
         onClose={() => { toggleSideNav(); }}
         onOpen={() => {}}
       >
-        <h3>zdsfzsfdf</h3>
+        <MenuList />
         {children}
       </SwipeableDrawer>
     </div>
