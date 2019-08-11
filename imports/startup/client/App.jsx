@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Logged from '/imports/ui/components/routes/Logged';
 import NoLogged from '/imports/ui/components/routes/NoLogged';
 // import Room from '/imports/ui/modules/Room';
-import Landing from '/imports/ui/modules/Landing';
+// import Landing from '/imports/ui/modules/Landing';
 // import Users from '/imports/ui/modules/Users';
 // import TchatBox from '/imports/ui/modules/TchatBox';
-// import Errors from '/imports/ui/modules/Errors';
+import Errors from '/imports/ui/modules/Errors';
 import Games from '/imports/ui/modules/Games';
 
 import { SidebarContextProvider } from '/imports/ui/context';
@@ -31,11 +31,11 @@ const App = () => (
         {/* <Logged path="/verify" component={Verify} /> */}
         {/* <Logged path="/room/:id" component={Room} /> */}
         <Logged path="/games" component={Games} />
-        <Route path="/landing" component={Landing} />
+        {/* <Route path="/landing" component={Landing} /> */}
         {/* <Logged path="/users" component={Users} /> */}
         {/* <Logged path="/tchatbox" component={TchatBox} /> */}
-        <Route exact path="/" component={Landing} />
-        <Route path="*" component={Landing} />
+        <Route exact path="/" component={Games} />
+        <Route path="*" component={Errors} />
       </Switch>
     </Router>
   </SidebarContextProvider>
