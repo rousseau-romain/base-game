@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '/imports/ui/components/Navbar';
+import AddIcon from '@material-ui/icons/Add';
+import AddButton from './AddButton';
+
 
 const Games = () => (
   <div>
@@ -8,6 +11,7 @@ const Games = () => (
     <h3>Games</h3>
     <Link to="/signup">Inscription</Link>
     <Link to="/signin">Connection</Link>
+    <AddButton><AddIcon /></AddButton>
   </div>
 );
 
