@@ -11,6 +11,8 @@ import Errors from '/imports/ui/modules/Errors';
 import Games from '/imports/ui/modules/Games';
 
 import { SidebarContextProvider } from '/imports/ui/context';
+import { CardGameContextProvider } from '/imports/ui/modules/Games/context';
+
 
 import {
   Signin,
@@ -22,22 +24,24 @@ import {
 
 const App = () => (
   <SidebarContextProvider>
-    <Router>
-      <Switch>
-        <NoLogged path="/signin" component={Signin} />
-        <NoLogged path="/signup" component={Signup} />
-        {/* <NoLogged path="/missing" component={Missing} /> */}
-        {/* <Logged path="/settings" component={Settings} /> */}
-        {/* <Logged path="/verify" component={Verify} /> */}
-        {/* <Logged path="/room/:id" component={Room} /> */}
-        <Logged path="/games" component={Games} />
-        <Route path="/landing" component={Landing} />
-        {/* <Logged path="/users" component={Users} /> */}
-        {/* <Logged path="/tchatbox" component={TchatBox} /> */}
-        <Route exact path="/" component={Games} />
-        <Route path="*" component={Errors} />
-      </Switch>
-    </Router>
+    <CardGameContextProvider>
+      <Router>
+        <Switch>
+          <NoLogged path="/signin" component={Signin} />
+          <NoLogged path="/signup" component={Signup} />
+          {/* <NoLogged path="/missing" component={Missing} /> */}
+          {/* <Logged path="/settings" component={Settings} /> */}
+          {/* <Logged path="/verify" component={Verify} /> */}
+          {/* <Logged path="/room/:id" component={Room} /> */}
+          <Logged path="/games" component={Games} />
+          <Route path="/landing" component={Landing} />
+          {/* <Logged path="/users" component={Users} /> */}
+          {/* <Logged path="/tchatbox" component={TchatBox} /> */}
+          <Route exact path="/" component={Games} />
+          <Route path="*" component={Errors} />
+        </Switch>
+      </Router>
+    </CardGameContextProvider>
   </SidebarContextProvider>
 );
 

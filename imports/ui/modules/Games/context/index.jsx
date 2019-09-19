@@ -1,5 +1,5 @@
 export {
   Context as CardGameContext,
-  Provider as CardGameProvider,
+  Provider as CardGameContextProvider,
   Consumer as CardGameContextConsumer,
 } from './Context';

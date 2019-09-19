@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,17 +13,21 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CloseIcon from '@material-ui/icons/Close';
 import CardGame from './CardGame';
 
+import { CardGameContext } from '../context';
+
 function NewGame() {
+  const { toggleCardGame } = useContext(CardGameContext);
+  const { cardGameIsOpen } = useContext(CardGameContext);
+
   const [expanded, setExpanded] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
 
   const handleExpandClick = () => { setExpanded(!expanded); };
-  const handleCloseClick = () => { setIsOpen(!isOpen); };
+  const handleCloseClick = () => { toggleCardGame(); };
   const deleteGame = () => { console.log('delete'); };
   const toggleFavorite = () => { console.log('toggleFavorite'); };
 
   return (
-    <CardGame isOpen={isOpen}>
+    <CardGame isOpen={cardGameIsOpen}>
       <CardHeader
         avatar={(
           <Avatar aria-label="recipe">
