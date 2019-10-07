@@ -15,7 +15,7 @@ import CardGame from './CardGame';
 
 import { CardGameContext } from '../context';
 
-function NewGame() {
+function Game() {
   const { toggleCardGame } = useContext(CardGameContext);
   const { cardGameIsOpen } = useContext(CardGameContext);
 
@@ -89,4 +89,4 @@ function NewGame() {
   );
 }
 
-export default NewGame;
+export default Game;

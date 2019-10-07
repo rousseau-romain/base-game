@@ -1,14 +1,7 @@
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 
-const left = ({ isOpen }) => {
-  console.log(isOpen);
-  if (isOpen) {
-    return '50%';
-  }
-  return '-60%';
-};
-// const left = ({ isOpen }) => (isOpen ? '50%' : '-60%');
+const left = ({ isOpen }) => (isOpen ? '50%' : '-60%');
 
 const CardGame = styled(Card)`
     width: 345px;
