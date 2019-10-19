@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
 import CardGame from './CardGame';
 
@@ -25,6 +26,7 @@ function Game() {
   const handleCloseClick = () => { toggleCardGame(); };
   const deleteGame = () => { console.log('delete'); };
   const toggleFavorite = () => { console.log('toggleFavorite'); };
+  const saveGame = () => { console.log('saveGame'); };
 
   return (
     <CardGame isOpen={cardGameIsOpen}>
@@ -64,6 +66,12 @@ function Game() {
           onClick={deleteGame}
         >
           <DeleteIcon />
+        </IconButton>
+        <IconButton
+          onClick={saveGame}
+          aria-label="save game"
+        >
+          <SaveIcon />
         </IconButton>
         <IconButton
           onClick={handleExpandClick}
