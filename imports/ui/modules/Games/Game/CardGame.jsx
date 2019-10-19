@@ -9,8 +9,9 @@ const CardGame = styled(Card)`
     transition: .375s ease-in-out;
     position: absolute;
     /* left: 50%; */
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     left: ${(left)};
+    top: 50%
 `;
 
 export default CardGame;
