@@ -16,10 +16,10 @@ const MenuList = ({ history }) => {
   return (
     <List
       component="nav"
-      aria-labelledby="list-sidenav"
+      aria-labelledby="list-pages"
       subheader={(
         <ListSubheader component="div" id="list-sidenav">
-          Nested List Items
+          List pages
         </ListSubheader>
       )}
     >

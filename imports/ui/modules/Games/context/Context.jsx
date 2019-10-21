@@ -12,16 +12,17 @@ export const Provider = (props) => {
 
   // Use State to keep the values
   const [cardGameIsOpen, setCardGameIsOpen] = useState(initialTest);
+  const [cardGameInfo, setCardGameInfo] = useState({});
 
-  const toggleCardGame = () => {
-    setCardGameIsOpen(!cardGameIsOpen);
-    console.log('card');
-  };
+  const setCardGame = game => setCardGameInfo(game);
+  const toggleCardGame = () => setCardGameIsOpen(!cardGameIsOpen);
 
   // Make the context object:
   const CardGameContext = {
     cardGameIsOpen,
     toggleCardGame,
+    cardGameInfo,
+    setCardGame,
   };
 
   // pass the value in provider and return
@@ -32,8 +33,10 @@ export const { Consumer } = Context;
 
 Provider.propTypes = {
   cardGameIsOpen: PropTypes.bool,
+  setCardGame: PropTypes.object,
 };
 
 Provider.defaultProps = {
   cardGameIsOpen: false,
+  setCardGame: {},
 };

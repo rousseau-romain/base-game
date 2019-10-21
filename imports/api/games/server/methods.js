@@ -1,64 +1,71 @@
 import { Meteor } from 'meteor/meteor';
-import Rooms from '..';
+import Games from '..';
 
 Meteor.methods({
-  'rooms.create': function (name) {
+  'games.create': function (name) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
 
-    Rooms.insert({
+    Games.insert({
       name,
       userId: this.userId,
       createdAt: new Date(),
     });
-    return Rooms.findOne({}, { sort: { createdAt: -1, limit: 1 } });
+    return Games.findOne({}, { sort: { createdAt: -1, limit: 1 } });
   },
 
-  'rooms.update': function ({ id, name }) {
+  'games.update': function ({ id, name }) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
 
-    const room = Rooms.findOne(id);
+    const room = Games.findOne(id);
 
     if (room.userId !== this.userId) {
       throw new Meteor.Error('403', 'You must be the owner of room');
     }
 
-    Rooms.update(id, { $set: { name } });
+    Games.update(id, { $set: { name } });
   },
 
-  'rooms.remove': function (id) {
+  'games.remove': function (id) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
 
-    const room = Rooms.findOne(id);
+    const room = Games.findOne(id);
 
     if (room.userId !== this.userId) {
       throw new Meteor.Error('403', 'You must be the owner of room');
     }
 
-    Rooms.remove(id);
+    Games.remove(id);
   },
 
-  'rooms.get': function () {
-    const rooms = Rooms.find({}, {
+  'games.get': function () {
+    if (!this.userId) {
+      throw new Meteor.Error('403', 'You must be connected');
+    }
+    const games = Games.find({ userId: this.userId }, {
       sort: { createdAt: -1 },
       limit: 50,
       // skip: 50,
     }).fetch();
-    return rooms;
+    return games;
   },
 
-  'room.getOne': function (id) {
-    return Rooms.findOne(id);
+  'games.getOne': function (id) {
+    console.log(id);
+    console.log(Games.findOne({ _id: id }));
+
+
+    return Games.findOne(id);
   },
 
 
-  'rooms.last': function () {
-    return Rooms.findOne({}, {
+  'games.last': function () {
+    return Games.findOne({}, {
       sort: { createdAt: -1, limit: 1 },
     });
   },

@@ -1,9 +1,9 @@
 import { Mongo } from 'meteor/mongo';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-const Rooms = new Mongo.Collection('rooms');
+const Games = new Mongo.Collection('games');
 
-const RoomSchema = new SimpleSchema({
+const GameSchema = new SimpleSchema({
   userId: {
     type: String,
   },
@@ -16,6 +16,6 @@ const RoomSchema = new SimpleSchema({
   },
 });
 
-Rooms.attachSchema(RoomSchema);
+Games.attachSchema(GameSchema);
 
-export default Rooms;
+export default Games;

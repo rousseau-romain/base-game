@@ -14,7 +14,7 @@ export const Provider = (props) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(initialTest);
 
   const toggleTest = () => {
-    setSidebarIsOpen(!sidebarIsOpen); console.log('edfgdgdfg');
+    setSidebarIsOpen(!sidebarIsOpen);
   };
 
   // Make the context object:

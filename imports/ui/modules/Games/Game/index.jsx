@@ -1,4 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+
+import { Meteor } from 'meteor/meteor';
+
+import { toast } from 'react-toastify';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,25 +28,53 @@ import CardGame from './CardGame';
 
 import { CardGameContext } from '../context';
 
-import listGame from './listGame';
+// import listGame from './listGame';
 
 function Game() {
   const { toggleCardGame } = useContext(CardGameContext);
   const { cardGameIsOpen } = useContext(CardGameContext);
+  const { cardGameInfo } = useContext(CardGameContext);
+  const { setCardGame } = useContext(CardGameContext);
 
+
+  const [listGames, setListGames] = useState([]);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => { setExpanded(!expanded); };
   const handleCloseClick = () => { toggleCardGame(); };
-  const deleteGame = () => { console.log('delete'); };
+  const deleteGame = (id) => { console.log(`delete: ${id}`); };
   const toggleFavorite = () => { console.log('toggleFavorite'); };
-  const saveGame = () => { console.log('saveGame'); };
+  const saveGame = (id) => { console.log(`saveGame: ${id}`); };
+
+  useEffect(() => {
+    console.log(Meteor.userId());
+  });
+  useEffect(() => {
+    Meteor.call('games.get', {}, (err, result) => {
+      if (err) toast.error(err.reason);
+      else setListGames(result);
+    });
+  }, []);
 
   return (
     <div>
       <List dense={false}>
-        { listGame.map(value => (
-          <ListItem key={value.id}>
+        { listGames.map(value => (
+          <ListItem
+            key={value._id._str}
+            onClick={() => {
+              Meteor.call('games.getOne', (value._id._str), (err, result) => {
+                if (err) {
+                  toast.error(err.reason); console.log(err);
+                } else {
+                  console.log(result);
+
+                  // setCardGame({ name: 'test' });
+                  // toggleCardGame();
+                }
+              });
+            }}
+          >
             <ListItemAvatar>
               <Avatar>
                 <FolderIcon />
@@ -84,8 +116,8 @@ function Game() {
               <CloseIcon onClick={handleCloseClick} />
             </IconButton>
           )}
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
+          title={cardGameInfo.name}
+          subheader={cardGameInfo.createdAt}
         />
         <CardMedia
           image="/static/images/cards/paella.jpg"

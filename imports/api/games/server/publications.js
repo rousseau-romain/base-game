@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
-import Rooms from '..';
+import Games from '..';
 
-Meteor.publish('rooms.get', () => (
-  Rooms.find({}, {
+Meteor.publish('games.get', () => (
+  Games.find({}, {
     sort: { createdAt: -1 },
     limit: 50,
     // skip: 50,
