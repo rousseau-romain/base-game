@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 
+import formatDate from '/imports/utils/formatDate';
+
 import { Meteor } from 'meteor/meteor';
 
 import { toast } from 'react-toastify';
@@ -28,10 +30,9 @@ import CardGame from './CardGame';
 
 import { CardGameContext } from '../context';
 
-// import listGame from './listGame';
-
 function Game() {
-  const { toggleCardGame } = useContext(CardGameContext);
+  const { openCardGame } = useContext(CardGameContext);
+  const { closeCardGame } = useContext(CardGameContext);
   const { cardGameIsOpen } = useContext(CardGameContext);
   const { cardGameInfo } = useContext(CardGameContext);
   const { setCardGame } = useContext(CardGameContext);
@@ -41,20 +42,32 @@ function Game() {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandClick = () => { setExpanded(!expanded); };
-  const handleCloseClick = () => { toggleCardGame(); };
+  const handleCloseClick = () => { closeCardGame(); };
   const deleteGame = (id) => { console.log(`delete: ${id}`); };
-  const toggleFavorite = () => { console.log('toggleFavorite'); };
-  const saveGame = (id) => { console.log(`saveGame: ${id}`); };
+  const toggleFavorite = () => { cardGameInfo.isFavorite = !cardGameInfo.isFavorite; };
+  const updateGame = (id) => {
+    console.log(`updateGame: ${id}`);
+    Meteor.call('games.update', ({
+      id,
+      name: cardGameInfo.name,
+      isFavorite: cardGameInfo.isFavorite,
+      paragraph: cardGameInfo.paragraph,
+    }), (err, result) => {
+      if (err) {
+        toast.error(err.reason); console.log(err);
+      } else {
+        console.log(result);
+      }
+    });
+  };
 
-  useEffect(() => {
-    console.log(Meteor.userId());
-  });
   useEffect(() => {
     Meteor.call('games.get', {}, (err, result) => {
       if (err) toast.error(err.reason);
       else setListGames(result);
     });
   }, []);
+
 
   return (
     <div>
@@ -64,13 +77,10 @@ function Game() {
             key={value._id._str}
             onClick={() => {
               Meteor.call('games.getOne', (value._id._str), (err, result) => {
-                if (err) {
-                  toast.error(err.reason); console.log(err);
-                } else {
-                  console.log(result);
-
-                  // setCardGame({ name: 'test' });
-                  // toggleCardGame();
+                if (err) toast.error(err.reason);
+                else {
+                  setCardGame(result);
+                  openCardGame();
                 }
               });
             }}
@@ -117,7 +127,7 @@ function Game() {
             </IconButton>
           )}
           title={cardGameInfo.name}
-          subheader={cardGameInfo.createdAt}
+          subheader={formatDate(cardGameInfo.createdAt)}
         />
         <CardMedia
           image="/static/images/cards/paella.jpg"
@@ -125,25 +135,24 @@ function Game() {
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+            {!cardGameInfo.paragraph}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <IconButton
             aria-label="add to favorites"
-            onClick={toggleFavorite}
+            onClick={() => { toggleFavorite(!cardGameInfo.isFavorite); }}
           >
             <FavoriteIcon />
           </IconButton>
           <IconButton
             aria-label="delete"
-            onClick={deleteGame}
+            onClick={() => deleteGame(cardGameInfo._id._str)}
           >
             <DeleteIcon />
           </IconButton>
           <IconButton
-            onClick={saveGame}
+            onClick={() => updateGame(cardGameInfo._id._str)}
             aria-label="save game"
           >
             <SaveIcon />

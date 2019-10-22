@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
 export const Context = createContext({});
 
@@ -10,17 +9,27 @@ export const Provider = (props) => {
     children,
   } = props;
 
+  const newGame = {
+    name: 'New game',
+    createdAt: new Date(),
+    isFavorite: false,
+    paragraph: 'New paragraph',
+  };
   // Use State to keep the values
   const [cardGameIsOpen, setCardGameIsOpen] = useState(initialTest);
-  const [cardGameInfo, setCardGameInfo] = useState({});
+  const [cardGameInfo, setCardGameInfo] = useState(newGame);
 
   const setCardGame = game => setCardGameInfo(game);
   const toggleCardGame = () => setCardGameIsOpen(!cardGameIsOpen);
+  const openCardGame = () => setCardGameIsOpen(true);
+  const closeCardGame = () => setCardGameIsOpen(false);
 
   // Make the context object:
   const CardGameContext = {
     cardGameIsOpen,
     toggleCardGame,
+    openCardGame,
+    closeCardGame,
     cardGameInfo,
     setCardGame,
   };
@@ -30,13 +39,3 @@ export const Provider = (props) => {
 };
 
 export const { Consumer } = Context;
-
-Provider.propTypes = {
-  cardGameIsOpen: PropTypes.bool,
-  setCardGame: PropTypes.object,
-};
-
-Provider.defaultProps = {
-  cardGameIsOpen: false,
-  setCardGame: {},
-};

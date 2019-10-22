@@ -9,7 +9,14 @@ const GameSchema = new SimpleSchema({
   },
   name: {
     type: String,
-    max: 255,
+    max: 50,
+  },
+  paragraph: {
+    type: String,
+    max: 500,
+  },
+  isFavorite: {
+    type: Boolean,
   },
   createdAt: {
     type: String,

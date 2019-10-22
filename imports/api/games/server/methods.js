@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
 import Games from '..';
 
 Meteor.methods({
@@ -15,18 +16,23 @@ Meteor.methods({
     return Games.findOne({}, { sort: { createdAt: -1, limit: 1 } });
   },
 
-  'games.update': function ({ id, name }) {
+  'games.update': function ({
+    id, name, isFavorite, paragraph,
+  }) {
+    console.log('update');
+
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
 
-    const room = Games.findOne(id);
+    const game = Games.findOne(new Mongo.ObjectID(id));
 
-    if (room.userId !== this.userId) {
+    if (game.userId !== this.userId) {
       throw new Meteor.Error('403', 'You must be the owner of room');
     }
 
-    Games.update(id, { $set: { name } });
+    const test = Games.update(id, { $set: { name, isFavorite, paragraph } });
+    return test;
   },
 
   'games.remove': function (id) {
@@ -44,9 +50,6 @@ Meteor.methods({
   },
 
   'games.get': function () {
-    if (!this.userId) {
-      throw new Meteor.Error('403', 'You must be connected');
-    }
     const games = Games.find({ userId: this.userId }, {
       sort: { createdAt: -1 },
       limit: 50,
@@ -56,11 +59,7 @@ Meteor.methods({
   },
 
   'games.getOne': function (id) {
-    console.log(id);
-    console.log(Games.findOne({ _id: id }));
-
-
-    return Games.findOne(id);
+    return Games.findOne(new Mongo.ObjectID(id));
   },
 
 
