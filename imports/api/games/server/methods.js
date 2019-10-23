@@ -17,10 +17,8 @@ Meteor.methods({
   },
 
   'games.update': function ({
-    id, name, isFavorite, paragraph,
+    id, name, isFavorite, paragraph, imageUrl,
   }) {
-    console.log('update');
-
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
@@ -31,7 +29,11 @@ Meteor.methods({
       throw new Meteor.Error('403', 'You must be the owner of room');
     }
 
-    const test = Games.update(id, { $set: { name, isFavorite, paragraph } });
+    const test = Games.update(id, {
+      $set: {
+        name, isFavorite, paragraph, imageUrl,
+      },
+    });
     return test;
   },
 

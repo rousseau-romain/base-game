@@ -14,6 +14,7 @@ export const Provider = (props) => {
     createdAt: new Date(),
     isFavorite: false,
     paragraph: 'New paragraph',
+    imageUrl: '',
   };
   // Use State to keep the values
   const [cardGameIsOpen, setCardGameIsOpen] = useState(initialTest);

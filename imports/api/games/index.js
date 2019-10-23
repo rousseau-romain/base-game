@@ -21,6 +21,9 @@ const GameSchema = new SimpleSchema({
   createdAt: {
     type: String,
   },
+  imageUrl: {
+    type: String,
+  },
 });
 
 Games.attachSchema(GameSchema);
