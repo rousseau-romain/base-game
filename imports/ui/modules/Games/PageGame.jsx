@@ -7,12 +7,19 @@ import Game from './Game';
 import { CardGameContext } from './context';
 
 const PageGame = ({ history }) => {
-  const { toggleCardGame } = useContext(CardGameContext);
+  const { openCardGame } = useContext(CardGameContext);
+  const { setNewCardGame } = useContext(CardGameContext);
 
   return (
     <div>
       <Navbar />
-      <AddButton onClick={() => { toggleCardGame(); }}><AddIcon /></AddButton>
+      <AddButton onClick={() => {
+        setNewCardGame();
+        openCardGame();
+      }}
+      >
+        <AddIcon />
+      </AddButton>
       <Game history={history} />
     </div>
   );

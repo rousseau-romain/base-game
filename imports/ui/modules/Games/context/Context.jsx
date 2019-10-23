@@ -20,6 +20,7 @@ export const Provider = (props) => {
   const [cardGameIsOpen, setCardGameIsOpen] = useState(initialTest);
   const [cardGameInfo, setCardGameInfo] = useState(newGame);
 
+  const setNewCardGame = () => setCardGameInfo(newGame);
   const setCardGame = game => setCardGameInfo(game);
   const toggleCardGame = () => setCardGameIsOpen(!cardGameIsOpen);
   const openCardGame = () => setCardGameIsOpen(true);
@@ -33,6 +34,7 @@ export const Provider = (props) => {
     closeCardGame,
     cardGameInfo,
     setCardGame,
+    setNewCardGame,
   };
 
   // pass the value in provider and return

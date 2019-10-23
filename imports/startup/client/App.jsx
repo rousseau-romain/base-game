@@ -9,6 +9,7 @@ import Landing from '/imports/ui/modules/Landing';
 // import TchatBox from '/imports/ui/modules/TchatBox';
 import Errors from '/imports/ui/modules/Errors';
 import Games from '/imports/ui/modules/Games';
+import Game from '/imports/ui/modules/Game';
 
 import { SidebarContextProvider } from '/imports/ui/context';
 
@@ -31,6 +32,7 @@ const App = () => (
         {/* <Logged path="/verify" component={Verify} /> */}
         {/* <Logged path="/room/:id" component={Room} /> */}
         <Logged path="/games" component={Games} />
+        <Logged path="/game/:gameId?" component={Game} />
         <Route path="/landing" component={Landing} />
         {/* <Logged path="/users" component={Users} /> */}
         {/* <Logged path="/tchatbox" component={TchatBox} /> */}
