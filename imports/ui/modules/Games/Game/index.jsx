@@ -1,6 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, {
+  useState, useContext, useEffect,
+} from 'react';
 
 import formatDate from '/imports/utils/formatDate';
+import goToUrl from '/imports/utils/goToUrl';
 
 import { Meteor } from 'meteor/meteor';
 
@@ -24,13 +27,13 @@ import Typography from '@material-ui/core/Typography';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
+import EditIcon from '@material-ui/icons/Edit';
 import CardGame from './CardGame';
 
 import { CardGameContext } from '../context';
 
-function Game() {
+function Game({ history }) {
   const { openCardGame } = useContext(CardGameContext);
   const { closeCardGame } = useContext(CardGameContext);
   const { cardGameIsOpen } = useContext(CardGameContext);
@@ -46,18 +49,14 @@ function Game() {
   const deleteGame = (id) => { console.log(`delete: ${id}`); };
   const toggleFavorite = () => { cardGameInfo.isFavorite = !cardGameInfo.isFavorite; };
   const updateGame = (id) => {
-    console.log(`updateGame: ${id}`);
     Meteor.call('games.update', ({
       id,
       name: cardGameInfo.name,
       isFavorite: cardGameInfo.isFavorite,
       paragraph: cardGameInfo.paragraph,
     }), (err, result) => {
-      if (err) {
-        toast.error(err.reason); console.log(err);
-      } else {
-        console.log(result);
-      }
+      if (err) toast.error(err.reason);
+      else console.log(result);
     });
   };
 
@@ -97,17 +96,27 @@ function Game() {
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"
+                aria-label="favorite"
+                onClick={() => {
+                  // toggleFavorite(!cardGameInfo.isFavorite);
+                  updateGame(value._id._str);
+                }}
+              >
+                <FavoriteIcon />
+              </IconButton>
+              <IconButton
+                aria-label="edit"
+                edge="end"
+                onClick={() => goToUrl(history, `game/${value._id._str}`)}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
                 aria-label="delete"
                 onClick={deleteGame}
               >
                 <DeleteIcon />
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="favorite"
-                onClick={toggleFavorite}
-              >
-                <FavoriteIcon />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
@@ -141,21 +150,18 @@ function Game() {
         <CardActions disableSpacing>
           <IconButton
             aria-label="add to favorites"
-            onClick={() => { toggleFavorite(!cardGameInfo.isFavorite); }}
+            onClick={() => {
+              toggleFavorite(!cardGameInfo.isFavorite);
+              updateGame(cardGameInfo._id._str);
+            }}
           >
             <FavoriteIcon />
           </IconButton>
           <IconButton
-            aria-label="delete"
-            onClick={() => deleteGame(cardGameInfo._id._str)}
+            aria-label="edit"
+            onClick={() => goToUrl(history, `game/${cardGameInfo._id._str}`)}
           >
-            <DeleteIcon />
-          </IconButton>
-          <IconButton
-            onClick={() => updateGame(cardGameInfo._id._str)}
-            aria-label="save game"
-          >
-            <SaveIcon />
+            <EditIcon />
           </IconButton>
           <IconButton
             onClick={handleExpandClick}
@@ -163,6 +169,12 @@ function Game() {
             aria-label="show more"
           >
             <ExpandMoreIcon />
+          </IconButton>
+          <IconButton
+            aria-label="delete"
+            onClick={() => deleteGame(cardGameInfo._id._str)}
+          >
+            <DeleteIcon />
           </IconButton>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>

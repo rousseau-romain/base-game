@@ -9,41 +9,38 @@ import GamesIcon from '@material-ui/icons/Games';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
 import PersonIcon from '@material-ui/icons/Person';
 import { withRouter } from 'react-router-dom';
+import goToUrl from '/imports/utils/goToUrl';
 
-const MenuList = ({ history }) => {
-  const goTo = (link) => { history.push(link); };
-
-  return (
-    <List
-      component="nav"
-      aria-labelledby="list-pages"
-      subheader={(
-        <ListSubheader component="div" id="list-sidenav">
+const MenuList = ({ history }) => (
+  <List
+    component="nav"
+    aria-labelledby="list-pages"
+    subheader={(
+      <ListSubheader component="div" id="list-sidenav">
           List pages
-        </ListSubheader>
-      )}
-    >
-      <ListItem button onClick={() => { goTo('/games'); }}>
-        <ListItemIcon>
-          <GamesIcon />
-        </ListItemIcon>
-        <ListItemText primary="Games" />
-      </ListItem>
-      <ListItem button onClick={() => { goTo('/consoles'); }}>
-        <ListItemIcon>
-          <VideogameAssetIcon />
-        </ListItemIcon>
-        <ListItemText primary="Consoles" />
-      </ListItem>
-      <Divider />
-      <ListItem button onClick={() => { goTo('/settings'); }}>
-        <ListItemIcon>
-          <PersonIcon />
-        </ListItemIcon>
-        <ListItemText primary="Settings" />
-      </ListItem>
-    </List>
-  );
-};
+      </ListSubheader>
+    )}
+  >
+    <ListItem button onClick={() => goToUrl(history, '/games')}>
+      <ListItemIcon>
+        <GamesIcon />
+      </ListItemIcon>
+      <ListItemText primary="Games" />
+    </ListItem>
+    <ListItem button onClick={() => goToUrl(history, '/consoles')}>
+      <ListItemIcon>
+        <VideogameAssetIcon />
+      </ListItemIcon>
+      <ListItemText primary="Consoles" />
+    </ListItem>
+    <Divider />
+    <ListItem button onClick={() => goToUrl(history, '/settings')}>
+      <ListItemIcon>
+        <PersonIcon />
+      </ListItemIcon>
+      <ListItemText primary="Settings" />
+    </ListItem>
+  </List>
+);
 
 export default withRouter(MenuList);

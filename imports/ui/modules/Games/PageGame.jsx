@@ -6,14 +6,14 @@ import Game from './Game';
 
 import { CardGameContext } from './context';
 
-const PageGame = () => {
+const PageGame = ({ history }) => {
   const { toggleCardGame } = useContext(CardGameContext);
 
   return (
     <div>
       <Navbar />
       <AddButton onClick={() => { toggleCardGame(); }}><AddIcon /></AddButton>
-      <Game />
+      <Game history={history} />
     </div>
   );
 };
