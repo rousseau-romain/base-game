@@ -6,17 +6,11 @@ import { toast } from 'react-toastify';
 
 const Game = ({ match: { params: { gameId } } }) => {
   const [gameInfo, setGameInfo] = useState();
-  const [gameInfoIsLoad, setGameInfoIsLoad] = useState(false);
 
   useEffect(() => {
     Meteor.call('games.getOne', (gameId), (err, result) => {
       if (err) toast.error(err.reason);
-      else {
-        console.log(result);
-
-        setGameInfo(result);
-        setGameInfoIsLoad(true);
-      }
+      else setGameInfo(result);
     });
   }, []);
 
@@ -25,7 +19,7 @@ const Game = ({ match: { params: { gameId } } }) => {
       <Navbar />
       <h1>testgame</h1>
       <p>{gameId}</p>
-      {gameInfoIsLoad && (
+      {gameInfo !== undefined && (
         <Fragment>
           <input type="text" value={gameInfo._id._str} />
           <input type="text" value={gameInfo.name} />
