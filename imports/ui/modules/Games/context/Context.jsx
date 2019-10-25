@@ -9,13 +9,7 @@ export const Provider = (props) => {
     children,
   } = props;
 
-  const newGame = {
-    name: 'New game',
-    createdAt: new Date(),
-    isFavorite: false,
-    paragraph: 'New paragraph',
-    imageUrl: '',
-  };
+  const newGame = null;
   // Use State to keep the values
   const [cardGameIsOpen, setCardGameIsOpen] = useState(initialTest);
   const [cardGameInfo, setCardGameInfo] = useState(newGame);

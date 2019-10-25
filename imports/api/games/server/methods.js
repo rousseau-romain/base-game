@@ -26,10 +26,9 @@ Meteor.methods({
     const game = Games.findOne(new Mongo.ObjectID(id));
 
     if (game.userId !== this.userId) {
-      throw new Meteor.Error('403', 'You must be the owner of room');
+      throw new Meteor.Error('403', 'You must be the owner of game');
     }
-
-    const test = Games.update(id, {
+    const test = Games.update(new Mongo.ObjectID(id), {
       $set: {
         name, isFavorite, paragraph, imageUrl,
       },
