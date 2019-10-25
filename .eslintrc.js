@@ -17,11 +17,7 @@ module.exports = {
     },
     sourceType: "module",
   },
-  plugins: [
-    "react",
-    "simple-import-sort",
-    "import",
-  ],
+  plugins: ["react"],
   extends: [ "airbnb" ],
   rules: {
     "react/jsx-filename-extension": 0,
@@ -39,11 +35,11 @@ module.exports = {
     "react/no-danger": 0,
     "no-bitwise": 0,
     "indent": ["error", 2],
-    "simple-import-sort/sort": "error",
-    "sort-imports": "off",
-    "import/first": "error",
-    "import/newline-after-import": "error",
-    "import/no-duplicates": "error"
+    "sort-imports": [2, {
+      "ignoreCase": false,
+      "ignoreMemberSort": false,
+      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+  }]
   },
   globals: {
     "describe": "readonly",

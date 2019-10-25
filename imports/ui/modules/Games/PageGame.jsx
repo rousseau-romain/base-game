@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import Navbar from '/imports/ui/components/Navbar';
 import AddIcon from '@material-ui/icons/Add';
+import { withRouter } from 'react-router-dom';
 import AddButton from './AddButton';
 import Game from './Game';
 
 import { CardGameContext } from './context';
+
 
 const PageGame = ({ history }) => {
   const { openCardGame } = useContext(CardGameContext);
@@ -25,4 +27,4 @@ const PageGame = ({ history }) => {
   );
 };
 
-export default PageGame;
+export default withRouter(PageGame);

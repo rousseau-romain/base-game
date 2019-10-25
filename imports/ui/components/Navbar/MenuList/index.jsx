@@ -7,9 +7,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import GamesIcon from '@material-ui/icons/Games';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
-import PersonIcon from '@material-ui/icons/Person';
 import { withRouter } from 'react-router-dom';
+import PersonIcon from '@material-ui/icons/Person';
 import goToUrl from '/imports/utils/goToUrl';
+
 
 const MenuList = ({ history }) => (
   <List

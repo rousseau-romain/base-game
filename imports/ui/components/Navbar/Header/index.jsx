@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
+
+import AppBar from '@material-ui/core/AppBar';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-
 import { SidebarContext } from '/imports/ui/context';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withRouter } from 'react-router-dom';
 
-const Header = () => {
+
+const Header = ({ history }) => {
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -66,8 +69,8 @@ const Header = () => {
 
   const Context = useContext(SidebarContext);
 
-
   const { toggleTest } = Context;
+  const goUrlBack = () => { history.goBack(); };
 
   const classes = useStyles();
   return (
@@ -79,7 +82,16 @@ const Header = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
-            onClick={() => toggleTest()}
+            onClick={goUrlBack}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={toggleTest}
           >
             <MenuIcon />
           </IconButton>
@@ -104,4 +116,4 @@ const Header = () => {
     </div>
   );
 };
-export default Header;
+export default withRouter(Header);
