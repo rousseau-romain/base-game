@@ -3,15 +3,18 @@ import { Mongo } from 'meteor/mongo';
 import Games from '..';
 
 Meteor.methods({
-  'games.create': function (name) {
+  'games.create': function ({name, paragraph, isFavorite, imageUrl}) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
 
     Games.insert({
-      name,
       userId: this.userId,
+      name,
+      paragraph,
+      isFavorite,
       createdAt: new Date(),
+      imageUrl,
     });
     return Games.findOne({}, { sort: { createdAt: -1, limit: 1 } });
   },
@@ -23,12 +26,12 @@ Meteor.methods({
       throw new Meteor.Error('403', 'You must be connected');
     }
 
-    const game = Games.findOne(new Mongo.ObjectID(id));
+    const game = Games.findOne(id);
 
     if (game.userId !== this.userId) {
       throw new Meteor.Error('403', 'You must be the owner of game');
     }
-    const test = Games.update(new Mongo.ObjectID(id), {
+    const test = Games.update(id, {
       $set: {
         name, isFavorite, paragraph, imageUrl,
       },
@@ -49,6 +52,23 @@ Meteor.methods({
 
     Games.remove(id);
   },
+  'games.toggleFavorite': function (id) {
+    if (!this.userId) {
+      throw new Meteor.Error('403', 'You must be connected');
+    }
+
+    const game = Games.findOne(id);
+
+    if (game.userId !== this.userId) {
+      throw new Meteor.Error('403', 'You must be the owner of game');
+    }
+    Games.update(id, {
+      $set: {
+         isFavorite: !game.isFavorite,
+      },
+    });
+    return Games.findOne(id);
+  },
 
   'games.get': function () {
     const games = Games.find({ userId: this.userId }, {
@@ -60,7 +80,7 @@ Meteor.methods({
   },
 
   'games.getOne': function (id) {
-    return Games.findOne(new Mongo.ObjectID(id));
+    return Games.findOne(id);
   },
 
 
