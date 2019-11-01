@@ -19,7 +19,7 @@ const GameSchema = new SimpleSchema({
     type: Boolean,
   },
   createdAt: {
-    type: String,
+    type: Date,
   },
   imageUrl: {
     type: String,
