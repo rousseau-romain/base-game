@@ -35,11 +35,6 @@ module.exports = {
     "react/no-danger": 0,
     "no-bitwise": 0,
     "indent": ["error", 2],
-    "sort-imports": [2, {
-      "ignoreCase": false,
-      "ignoreMemberSort": false,
-      "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
-  }]
   },
   globals: {
     "describe": "readonly",
