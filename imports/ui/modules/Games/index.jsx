@@ -69,7 +69,7 @@ function Game({ history }) {
       <Navbar />
       <ToastContainer />
       <List dense={false}>
-        { listGames.map((value, key) => (
+        { listGames.map(value => (
           <ListItem
             key={value._id}
             onClick={() => goToUrl(history, `game/${value._id}`)}
@@ -92,7 +92,7 @@ function Game({ history }) {
                 edge="end"
                 aria-label="favorite"
                 onClick={(e) => {
-                  toggleFavorite(value._id, key, e);
+                  toggleFavorite(value._id, e);
                 }}
               >
                 {
