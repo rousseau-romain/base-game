@@ -77,15 +77,17 @@ const Header = ({ history }) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={goUrlBack}
-          >
-            <ArrowBackIcon />
-          </IconButton>
+          {
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={goUrlBack}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          }
           <IconButton
             edge="start"
             className={classes.menuButton}
@@ -96,7 +98,7 @@ const Header = ({ history }) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
+            Base-Game
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
