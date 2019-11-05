@@ -16,20 +16,19 @@ const Game = ({ match: { params: { gameId } } }) => {
   const [gameInfo, setGameInfo] = useState(undefined);
 
   useEffect(() => {
-    if (isNaN(gameId)) {
+    if (gameId === 'new') {
       setGameInfo({
         name: 'New game',
         paragraph: 'Game paragraph',
         isFavorite: false,
         imageUrl: '',
-      })
-    } else{
+      });
+    } else {
       Meteor.call('games.getOne', (gameId), (err, result) => {
         if (err) toast.error(err.reason);
         else setGameInfo(result);
       });
     }
-
   }, []);
 
   const changeGameInfo = type => (event) => {
@@ -54,12 +53,12 @@ const Game = ({ match: { params: { gameId } } }) => {
       paragraph: gameInfo.paragraph,
       isFavorite: gameInfo.isFavorite,
       imageUrl: gameInfo.imageUrl,
-    }, (err, result) => {
+    }, (err) => {
       if (err) toast.error(err.reason);
       else toast.success('Game added');
     });
   };
-  
+
   return (
     <div>
       <ToastContainer />
@@ -93,14 +92,14 @@ const Game = ({ match: { params: { gameId } } }) => {
             onChange={changeGameInfo('imageUrl')}
             margin="normal"
           />
-          {isNaN(gameId) ? (
+          {gameId === 'new' ? (
             <Button
               variant="contained"
               color="primary"
               endIcon={<AddIcon />}
               onClick={addNewGameInfo}
             >
-            {'Add'}
+              {'Add'}
             </Button>
           ) : (
             <Button
@@ -109,7 +108,7 @@ const Game = ({ match: { params: { gameId } } }) => {
               endIcon={<SaveIcon />}
               onClick={updateGameInfo}
             >
-            {'Save'}
+              {'Save'}
             </Button>
           )}
         </Fragment>

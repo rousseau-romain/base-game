@@ -35,7 +35,7 @@ module.exports = {
     "react/no-danger": 0,
     "no-bitwise": 0,
     "indent": ["error", 2],
-    "no-restricted-globals": ["isNaN"]
+    "no-param-reassign": ["error", { "props": false }],
   },
   globals: {
     "describe": "readonly",

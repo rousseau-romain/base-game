@@ -1,9 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import Games from '..';
 
 Meteor.methods({
-  'games.create': function ({name, paragraph, isFavorite, imageUrl}) {
+  'games.create': function ({
+    name, paragraph, isFavorite, imageUrl,
+  }) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
     }
@@ -64,7 +65,7 @@ Meteor.methods({
     }
     Games.update(id, {
       $set: {
-         isFavorite: !game.isFavorite,
+        isFavorite: !game.isFavorite,
       },
     });
     return Games.findOne(id);

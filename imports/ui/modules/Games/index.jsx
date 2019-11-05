@@ -1,15 +1,12 @@
 import React, {
-  useState, useContext, useEffect,
+  useState, useEffect,
 } from 'react';
 
 import { withRouter } from 'react-router-dom';
 
 import Navbar from '/imports/ui/components/Navbar';
-import AddButton from './AddButton';
 import AddIcon from '@material-ui/icons/Add';
 
-
-import formatDate from '/imports/utils/formatDate';
 import goToUrl from '/imports/utils/goToUrl';
 
 import { Meteor } from 'meteor/meteor';
@@ -28,57 +25,62 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import AddButton from './AddButton';
 
 function Game({ history }) {
-
   const [listGames, setListGames] = useState([]);
 
-  const deleteGame = (id) => { console.log(`delete: ${id}`); };
-  const toggleFavorite = (id, key) => {
-    Meteor.call('games.toggleFavorite', (id), (err, response) => {
-      if (err) toast.error(err.reason);
-      else {
-        const newListGames= listGames;
-        newListGames[key]=response
-        setListGames(newListGames)
+  const deleteGame = (id, e) => {
+    e.stopPropagation();
+    Meteor.call('games.remove', (id), (err) => {
+      if (err) {
+        toast.error(err.reason);
+      } else {
+        setListGames(listGames.filter(game => game._id !== id));
+        toast.success('Game deleted');
       }
     });
-
   };
-  const updateGame = (id) => {
-    Meteor.call('games.update', ({
-      id,
-      name: cardGameInfo.name,
-      isFavorite: cardGameInfo.isFavorite,
-      paragraph: cardGameInfo.paragraph,
-      imageUrl: cardGameInfo.imageUrl,
-    }), (err, result) => {
+
+  const toggleFavorite = (id, e) => {
+    e.stopPropagation();
+    Meteor.call('games.toggleFavorite', (id), (err) => {
       if (err) toast.error(err.reason);
-      else console.log(result);
+      else {
+        const newListGames = listGames.map((game) => {
+          if (game._id === id) game.isFavorite = !game.isFavorite;
+          return game;
+        });
+        setListGames(newListGames);
+      }
     });
   };
 
   useEffect(() => {
     Meteor.call('games.get', {}, (err, result) => {
       if (err) toast.error(err.reason);
-      else {setListGames(result);console.log(result[0]._id);
-      }
+      else setListGames(result);
     });
   }, []);
 
 
   return (
     <div>
-    <Navbar />
+      <Navbar />
       <ToastContainer />
       <List dense={false}>
         { listGames.map((value, key) => (
           <ListItem
             key={value._id}
+            onClick={() => goToUrl(history, `game/${value._id}`)}
           >
             <ListItemAvatar>
               <Avatar>
-                <FolderIcon />
+                {
+                  value.imageUrl !== ''
+                    ? (<Avatar alt="image game" src={value.imageUrl} />)
+                    : (<FolderIcon />)
+                }
               </Avatar>
             </ListItemAvatar>
             <ListItemText
@@ -89,13 +91,15 @@ function Game({ history }) {
               <IconButton
                 edge="end"
                 aria-label="favorite"
-                onClick={() => {
-                  toggleFavorite(value._id, key)
+                onClick={(e) => {
+                  toggleFavorite(value._id, key, e);
                 }}
               >
-                {value.isFavorite ? 
-                (<FavoriteIcon color="error"/>) : 
-                (<FavoriteIcon color="action"/>)}
+                {
+                  value.isFavorite
+                    ? (<FavoriteIcon color="error" />)
+                    : (<FavoriteIcon color="action" />)
+                }
               </IconButton>
               <IconButton
                 aria-label="edit"
@@ -107,7 +111,7 @@ function Game({ history }) {
               <IconButton
                 edge="end"
                 aria-label="delete"
-                onClick={() => {deleteGame(value._id)}}
+                onClick={(e) => { deleteGame(value._id, e); }}
               >
                 <DeleteIcon />
               </IconButton>
