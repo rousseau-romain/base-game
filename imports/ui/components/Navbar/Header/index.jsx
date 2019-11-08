@@ -78,15 +78,18 @@ const Header = ({ history }) => {
       <AppBar position="static">
         <Toolbar>
           {
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={goUrlBack}
-            >
-              <ArrowBackIcon />
-            </IconButton>
+            history.length > 2
+              ? (
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
+                  color="inherit"
+                  aria-label="Open drawer"
+                  onClick={goUrlBack}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
+              ) : (null)
           }
           <IconButton
             edge="start"
