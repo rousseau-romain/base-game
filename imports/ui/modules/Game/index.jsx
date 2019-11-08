@@ -31,10 +31,10 @@ const Game = ({ match: { params: { gameId } } }) => {
         paragraph: 'Game paragraph',
         isFavorite: false,
         imageUrl: '',
-        type: arrayParamsGame.type[0],
-        content: arrayParamsGame.content[0],
-        status: arrayParamsGame.status[0],
-        state: arrayParamsGame.state[0],
+        type: arrayParamsGame.TYPE.ACTION_ADVENTURE,
+        content: arrayParamsGame.CONTENT.NOT_STARTED,
+        status: arrayParamsGame.STATUS.FULL,
+        state: arrayParamsGame.STATE.NEW,
       });
     } else {
       Meteor.call('games.getOne', (gameId), (err, result) => {
@@ -51,14 +51,7 @@ const Game = ({ match: { params: { gameId } } }) => {
   const updateGameInfo = () => {
     Meteor.call('games.update', {
       id: gameId,
-      name: gameInfo.name,
-      paragraph: gameInfo.paragraph,
-      isFavorite: gameInfo.isFavorite,
-      imageUrl: gameInfo.imageUrl,
-      type: gameInfo.type,
-      content: gameInfo.content,
-      status: gameInfo.status,
-      state: gameInfo.state,
+      ...gameInfo,
     }, (err) => {
       if (err) toast.error(err.reason);
     });
@@ -123,7 +116,7 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.type}
                   onChange={changeGameInfo('type')}
                 >
-                  {arrayParamsGame.type.map(paramsGame => (
+                  {arrayParamsGame.Array.prototype.TYPE.map(paramsGame => (
                     <MenuItem
                       key={paramsGame}
                       value={paramsGame}
@@ -142,7 +135,7 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.status}
                   onChange={changeGameInfo('status')}
                 >
-                  {arrayParamsGame.status.map(paramsGame => (
+                  {arrayParamsGame.Array.prototype.STATUS.map(paramsGame => (
                     <MenuItem
                       key={paramsGame}
                       value={paramsGame}
@@ -161,7 +154,7 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.state}
                   onChange={changeGameInfo('state')}
                 >
-                  {arrayParamsGame.state.map(paramsGame => (
+                  {arrayParamsGame.Array.prototype.STATE.map(paramsGame => (
                     <MenuItem
                       key={paramsGame}
                       value={paramsGame}
@@ -180,7 +173,7 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.content}
                   onChange={changeGameInfo('content')}
                 >
-                  {arrayParamsGame.content.map(paramsGame => (
+                  {arrayParamsGame.Array.prototype.CONTENT.map(paramsGame => (
                     <MenuItem
                       key={paramsGame}
                       value={paramsGame}
