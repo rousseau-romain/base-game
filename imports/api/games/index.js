@@ -23,6 +23,23 @@ const GameSchema = new SimpleSchema({
   },
   imageUrl: {
     type: String,
+    max: 300,
+  },
+  type: {
+    type: String,
+    max: 50,
+  },
+  content: {
+    type: String,
+    max: 50,
+  },
+  status: {
+    type: String,
+    max: 50,
+  },
+  state: {
+    type: String,
+    max: 50,
   },
 });
 
