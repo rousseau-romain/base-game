@@ -32,8 +32,8 @@ const Game = ({ match: { params: { gameId } } }) => {
         isFavorite: false,
         imageUrl: '',
         type: arrayParamsGame.TYPE.ACTION_ADVENTURE,
-        content: arrayParamsGame.CONTENT.NOT_STARTED,
-        status: arrayParamsGame.STATUS.FULL,
+        content: arrayParamsGame.CONTENT.FULL,
+        status: arrayParamsGame.STATUS.NOT_STARTED,
         state: arrayParamsGame.STATE.NEW,
       });
     } else {
@@ -78,7 +78,7 @@ const Game = ({ match: { params: { gameId } } }) => {
       <Navbar />
       {gameInfo !== undefined && (
         <Container maxWidth="sm">
-          <Grid container spacing={3} justify="center" direction="row">
+          <Grid container spacing={3} justify="flex-start" direction="row">
             <Grid item xs={6}>
               <TextField
                 id="standard-name"
@@ -108,7 +108,7 @@ const Game = ({ match: { params: { gameId } } }) => {
                 margin="normal"
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs="auto">
               <FormControl>
                 <InputLabel id="type-select-label">Type</InputLabel>
                 <Select
@@ -116,18 +116,18 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.type}
                   onChange={changeGameInfo('type')}
                 >
-                  {arrayParamsGame.Array.prototype.TYPE.map(paramsGame => (
+                  {Object.entries(arrayParamsGame.TYPE).map(paramsGame => (
                     <MenuItem
-                      key={paramsGame}
-                      value={paramsGame}
+                      key={paramsGame[0]}
+                      value={paramsGame[1]}
                     >
-                      {paramsGame}
+                      {paramsGame[1]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs="auto">
               <FormControl>
                 <InputLabel id="status-select-label">Status</InputLabel>
                 <Select
@@ -135,18 +135,18 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.status}
                   onChange={changeGameInfo('status')}
                 >
-                  {arrayParamsGame.Array.prototype.STATUS.map(paramsGame => (
+                  {Object.entries(arrayParamsGame.STATUS).map(paramsGame => (
                     <MenuItem
-                      key={paramsGame}
-                      value={paramsGame}
+                      key={paramsGame[0]}
+                      value={paramsGame[1]}
                     >
-                      {paramsGame}
+                      {paramsGame[1]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs="auto">
               <FormControl>
                 <InputLabel id="state-select-label">State</InputLabel>
                 <Select
@@ -154,18 +154,18 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.state}
                   onChange={changeGameInfo('state')}
                 >
-                  {arrayParamsGame.Array.prototype.STATE.map(paramsGame => (
+                  {Object.entries(arrayParamsGame.STATE).map(paramsGame => (
                     <MenuItem
-                      key={paramsGame}
-                      value={paramsGame}
+                      key={paramsGame[0]}
+                      value={paramsGame[1]}
                     >
-                      {paramsGame}
+                      {paramsGame[1]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <FormControl>
                 <InputLabel id="content-select-label">Content</InputLabel>
                 <Select
@@ -173,19 +173,23 @@ const Game = ({ match: { params: { gameId } } }) => {
                   value={gameInfo.content}
                   onChange={changeGameInfo('content')}
                 >
-                  {arrayParamsGame.Array.prototype.CONTENT.map(paramsGame => (
+                  {Object.entries(arrayParamsGame.CONTENT).map(paramsGame => (
                     <MenuItem
-                      key={paramsGame}
-                      value={paramsGame}
+                      key={paramsGame[0]}
+                      value={paramsGame[1]}
                     >
-                      {paramsGame}
+                      {paramsGame[1]}
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={6}>
-              <Button gameId={gameId} addNewGameInfo={addNewGameInfo} updateGameInfo={updateGameInfo} />
+            <Grid item xs={12}>
+              <Button
+                gameId={gameId}
+                addNewGameInfo={addNewGameInfo}
+                updateGameInfo={updateGameInfo}
+              />
             </Grid>
           </Grid>
         </Container>
