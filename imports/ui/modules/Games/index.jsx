@@ -66,7 +66,7 @@ function Game({ history }) {
 
   return (
     <div>
-      <Navbar />
+      <Navbar pageName="Page Games" />
       <ToastContainer />
       <List dense={false}>
         { listGames.map(value => (

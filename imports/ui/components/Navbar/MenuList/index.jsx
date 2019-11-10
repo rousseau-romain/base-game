@@ -12,13 +12,13 @@ import PersonIcon from '@material-ui/icons/Person';
 import goToUrl from '/imports/utils/goToUrl';
 
 
-const MenuList = ({ history }) => (
+const MenuList = ({ history, title }) => (
   <List
     component="nav"
     aria-labelledby="list-pages"
     subheader={(
       <ListSubheader component="div" id="list-sidenav">
-          List pages
+        {title === undefined ? ('Menu List') : (title)}
       </ListSubheader>
     )}
   >
@@ -43,5 +43,4 @@ const MenuList = ({ history }) => (
     </ListItem>
   </List>
 );
-
 export default withRouter(MenuList);

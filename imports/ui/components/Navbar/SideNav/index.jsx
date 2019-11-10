@@ -2,14 +2,14 @@ import React, { useState, useContext, useEffect } from 'react';
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 
-import { SidebarContext } from '/imports/ui/context';
+import { AppContext } from '/imports/ui/context';
 import MenuList from '../MenuList';
 
-const SwipeableTemporaryDrawer = ({ children }) => {
+const SwipeableTemporaryDrawer = ({ children, pageName }) => {
   // ToFix: useEffect trigger toggle sidenav so isOpen change instant true -> false
   const [isOpen, setIsOpen] = useState(true);
 
-  const { sidebarIsOpen } = useContext(SidebarContext);
+  const { sidebarIsOpen } = useContext(AppContext);
 
   const toggleSideNav = () => setIsOpen(!isOpen);
 
@@ -22,7 +22,7 @@ const SwipeableTemporaryDrawer = ({ children }) => {
         onClose={() => { toggleSideNav(); }}
         onOpen={() => {}}
       >
-        <MenuList />
+        <MenuList title={pageName} />
         {children}
       </SwipeableDrawer>
     </div>

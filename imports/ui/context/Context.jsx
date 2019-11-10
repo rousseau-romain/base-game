@@ -1,17 +1,18 @@
 import React, { createContext, useState } from 'react';
-import PropTypes from 'prop-types';
 
 export const Context = createContext({});
 
 export const Provider = (props) => {
   // Initial values are obtained from the props
   const {
-    sidebarIsOpen: initialTest,
+    pageName: pageNameInitial,
+    sidebarIsOpen: sidebarIsOpenInitial,
     children,
   } = props;
 
   // Use State to keep the values
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(initialTest);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(sidebarIsOpenInitial);
+  const [pageName, setPageName] = useState(pageNameInitial);
 
   const toggleTest = () => {
     setSidebarIsOpen(!sidebarIsOpen);
@@ -19,6 +20,8 @@ export const Provider = (props) => {
 
   // Make the context object:
   const sidebarContext = {
+    pageName,
+    setPageName,
     sidebarIsOpen,
     toggleTest,
   };
@@ -28,11 +31,3 @@ export const Provider = (props) => {
 };
 
 export const { Consumer } = Context;
-
-Provider.propTypes = {
-  sidebarIsOpen: PropTypes.bool,
-};
-
-Provider.defaultProps = {
-  sidebarIsOpen: false,
-};

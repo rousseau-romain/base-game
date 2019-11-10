@@ -1,5 +1,5 @@
 export {
-  Context as SidebarContext,
+  Context as AppContext,
   Provider as SidebarContextProvider,
   Consumer as SidebarContextConsumer,
 } from './Context';

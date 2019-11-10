@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { SidebarContext } from '/imports/ui/context';
+import { AppContext } from '/imports/ui/context';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
@@ -67,9 +67,7 @@ const Header = ({ history }) => {
     },
   }));
 
-  const Context = useContext(SidebarContext);
-
-  const { toggleTest } = Context;
+  const { toggleTest } = useContext(AppContext);
   const goUrlBack = () => { history.goBack(); };
 
   const classes = useStyles();

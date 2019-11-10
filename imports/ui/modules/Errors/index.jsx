@@ -3,7 +3,7 @@ import Navbar from '/imports/ui/components/Navbar';
 
 const Errors = () => (
   <div>
-    <Navbar />
+    <Navbar pageName="Page Error" />
     <h3>404 page not found</h3>
   </div>
 );
