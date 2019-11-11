@@ -37,6 +37,14 @@ Meteor.methods({
     }
   },
 
+  'usersInfos.get': function () {
+    const user = Meteor.user();
+    user.email = user.emails[0].address;
+    delete user.services;
+    delete user.emails;
+    return user;
+  },
+
   // 'usersInfos.remove'({ id }) {
   //   if (!this.userId) {
   //     throw new Meteor.Error('403', 'You must be connected');

@@ -17,7 +17,7 @@ import {
   Signin,
   Signup,
   // Missing,
-  // Settings,
+  Settings,
   // Verify,
 } from '/imports/ui/modules/Accounts';
 
@@ -28,7 +28,7 @@ const App = () => (
         <NoLogged path="/signin" component={Signin} />
         <NoLogged path="/signup" component={Signup} />
         {/* <NoLogged path="/missing" component={Missing} /> */}
-        {/* <Logged path="/settings" component={Settings} /> */}
+        <Logged path="/settings" component={Settings} />
         {/* <Logged path="/verify" component={Verify} /> */}
         {/* <Logged path="/room/:id" component={Room} /> */}
         <Logged path="/games" component={Games} />
