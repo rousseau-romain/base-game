@@ -4,7 +4,7 @@ import { GENDERS } from '/imports/utils/constants';
 
 const UserSchema = new SimpleSchema({
   age: {
-    type: String,
+    type: Number,
     max: 255,
     optional: true,
   },

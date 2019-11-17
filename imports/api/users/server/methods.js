@@ -23,7 +23,7 @@ Meteor.methods({
     }
 
     if (
-      (typeof age === 'string')
+      (typeof age === 'number')
       && (typeof city === 'string')
       && (typeof gender === 'string')
     ) {
