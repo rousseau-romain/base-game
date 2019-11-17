@@ -3,8 +3,8 @@ import SimpleSchema from 'simpl-schema';
 import { GENDERS } from '/imports/utils/constants';
 
 const UserSchema = new SimpleSchema({
-  age: {
-    type: Number,
+  dateOfBirth: {
+    type: Date,
     max: 255,
     optional: true,
   },

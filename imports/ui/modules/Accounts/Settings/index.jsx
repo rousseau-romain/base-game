@@ -4,9 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
 import { GENDERS } from '/imports/utils/constants';
+import formatDate from '/imports/utils/formatDate';
+import toCapitalize from '/imports/utils/toCapitalize';
 
-import Grid from '@material-ui/core/Grid';
 import Navbar from '/imports/ui/components/Navbar';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -14,7 +16,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
-import SliderUi from '@material-ui/core/Slider';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import Button from './Button';
 
 const Settings = () => {
@@ -24,8 +27,8 @@ const Settings = () => {
     setUserInfo({ ...userInfo, [type]: event.target.value });
   };
 
-  const changeUserInfoAge = (age) => {
-    setUserInfo({ ...userInfo, age });
+  const changeUserInfoDate = (dateOfBirth) => {
+    setUserInfo({ ...userInfo, dateOfBirth });
   };
 
   const updateUserInfo = () => {
@@ -35,12 +38,9 @@ const Settings = () => {
   };
 
   useEffect(() => {
-    console.log('load');
-
     Meteor.call('usersInfos.get', {}, (err, result) => {
       if (err) toast.error(err.reason);
       else setUserInfo(result);
-      console.log(result);
     });
   }, []);
 
@@ -74,17 +74,17 @@ const Settings = () => {
             </Grid>
             <Grid item xs={10} container>
               <Typography id="discrete-slider" gutterBottom>
-                Age
+                Date of birth
               </Typography>
-              <SliderUi
-                defaultValue={userInfo.age || 30}
-                onChangeCommitted={(e, value) => { changeUserInfoAge(value); }}
-                aria-labelledby="slider-age"
-                valueLabelDisplay="auto"
-                step={1}
-                min={1}
-                max={100}
-              />
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  clearable
+                  value={userInfo.dateOfBirth}
+                  placeholder={formatDate(userInfo.dateOfBirth) || formatDate(new Date())}
+                  onChange={date => changeUserInfoDate(date)}
+                  format="MM/dd/yyyy"
+                />
+              </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={6}>
               <FormControl>
@@ -98,9 +98,9 @@ const Settings = () => {
                   {Object.values(GENDERS).map(gender => (
                     <MenuItem
                       key={gender}
-                      value={gender}
+                      value={toCapitalize(gender)}
                     >
-                      {gender}
+                      {toCapitalize(gender)}
                     </MenuItem>
                   ))}
                 </Select>
