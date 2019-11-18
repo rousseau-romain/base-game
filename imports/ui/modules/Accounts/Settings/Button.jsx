@@ -6,7 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   button: {
-    margin: '0 auto',
+    // margin: '0 auto',
+    width: '100%',
     display: 'flex',
   },
 });

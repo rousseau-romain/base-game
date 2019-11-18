@@ -43,41 +43,47 @@ const Settings = () => {
       else setUserInfo(result);
     });
   }, []);
-
   return (
     <div>
       <ToastContainer />
       <Navbar pageName="Setting User" />
-
-
       {userInfo !== undefined && (
         <Container maxWidth="sm">
-
           <Grid alignItems="center" container spacing={3} justify="flex-start" direction="row">
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 id="standard-username"
                 label="Username"
                 value={userInfo.username}
                 onChange={changeUserInfo('username')}
                 margin="normal"
+                fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 id="standard-email"
                 label="Email"
                 value={userInfo.email}
                 onChange={changeUserInfo('email')}
                 margin="normal"
+                fullWidth
               />
             </Grid>
-            <Grid item xs={10} container>
-              <Typography id="discrete-slider" gutterBottom>
-                Date of birth
-              </Typography>
+            <Grid item xs={12}>
+              <TextField
+                id="standard-city"
+                label="City"
+                value={userInfo.city}
+                onChange={changeUserInfo('city')}
+                margin="normal"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6} container>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
+                  label="Date of birth"
                   clearable
                   value={userInfo.dateOfBirth}
                   placeholder={formatDate(userInfo.dateOfBirth) || formatDate(new Date())}
@@ -87,7 +93,7 @@ const Settings = () => {
               </MuiPickersUtilsProvider>
             </Grid>
             <Grid item xs={6}>
-              <FormControl>
+              <FormControl fullWidth>
                 <InputLabel id="content-select-gender">Gender</InputLabel>
                 <Select
                   label="Gender"
@@ -107,18 +113,8 @@ const Settings = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                id="standard-city"
-                label="City"
-                value={userInfo.city}
-                onChange={changeUserInfo('city')}
-                margin="normal"
-              />
-            </Grid>
-            <Grid item xs={12}>
               <Button updateUserInfo={updateUserInfo} />
             </Grid>
-
           </Grid>
         </Container>
       )}
