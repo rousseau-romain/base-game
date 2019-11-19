@@ -1,17 +1,13 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+
+import { Meteor } from 'meteor/meteor';
 
 import { withRouter } from 'react-router-dom';
 
 import Navbar from '/imports/ui/components/Navbar';
-import AddIcon from '@material-ui/icons/Add';
 
 import goToUrl from '/imports/utils/goToUrl';
-
-import { Meteor } from 'meteor/meteor';
-
-import { toast, ToastContainer } from 'react-toastify';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,7 +21,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddButton from './AddButton';
+import ButtonAdd from './ButtonAdd';
 
 function Game({ history }) {
   const [listGames, setListGames] = useState([]);
@@ -102,8 +98,8 @@ function Game({ history }) {
                 }
               </IconButton>
               <IconButton
-                aria-label="edit"
                 edge="end"
+                aria-label="edit"
                 onClick={() => goToUrl(history, `game/${value._id}`)}
               >
                 <EditIcon />
@@ -119,9 +115,7 @@ function Game({ history }) {
           </ListItem>
         ))}
       </List>
-      <AddButton onClick={() => { goToUrl(history, '/game/new'); }}>
-        <AddIcon />
-      </AddButton>
+      <ButtonAdd onClick={() => { goToUrl(history, '/game/new'); }} />
     </div>
   );
 }

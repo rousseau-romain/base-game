@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ButtonUi from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import AddIcon from '@material-ui/icons/Add';
@@ -7,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   button: {
+    width: '100%',
     margin: '0 auto',
     display: 'flex',
   },
