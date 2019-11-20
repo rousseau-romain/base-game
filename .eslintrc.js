@@ -17,9 +17,11 @@ module.exports = {
     },
     sourceType: "module",
   },
-  plugins: ["react"],
+  plugins: ["react", "react-hooks"],
   extends: [ "airbnb" ],
   rules: {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": 0,
     "function-paren-newline": 0,
     "import/extensions": 0,

@@ -42,7 +42,7 @@ const Game = ({ match: { params: { gameId } } }) => {
         else setGameInfo(result);
       });
     }
-  }, []);
+  }, [gameId]);
 
   const changeGameInfo = type => (event) => {
     setGameInfo({ ...gameInfo, [type]: event.target.value });
