@@ -27,6 +27,7 @@ module.exports = {
     "import/extensions": 0,
     "import/no-unresolved": 0,
     "import/no-absolute-path": 0,
+    "import/order": 0,
     "no-underscore-dangle": 0,
     "react/no-unescaped-entities": 0,
     "jsx-a11y/anchor-is-valid": 0,
