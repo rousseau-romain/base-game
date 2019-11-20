@@ -1,10 +1,11 @@
 import indigo from '@material-ui/core/colors/indigo';
 import red from '@material-ui/core/colors/red';
+import green from '@material-ui/core/colors/green';
 
 const customColors = {
   primary: {
-    superLight: 'rgba(206, 231, 255, 1)',
-    light: 'rgba(163, 210, 255, 1)',
+    superLight: indigo[300],
+    light: indigo[400],
     base: indigo[500],
     dark: indigo[600],
   },
@@ -16,7 +17,7 @@ const customColors = {
   third: 'rgba(252, 186, 33, 1)',
   alert: {
     wrong: red[500],
-    valid: 'rgba(46, 239, 39, 1)',
+    valid: green[500],
   },
   orange: 'rgba(255, 135, 0, 1)',
   red: 'rgb(255,0,0)',
