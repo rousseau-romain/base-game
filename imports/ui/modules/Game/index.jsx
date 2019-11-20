@@ -74,7 +74,7 @@ const Game = ({ match: { params: { gameId } } }) => {
 
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <Navbar pageName="Page Game" />
       {gameInfo !== undefined && (
         <Container maxWidth="sm">

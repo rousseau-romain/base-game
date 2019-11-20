@@ -44,7 +44,7 @@ const Settings = () => {
   }, []);
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
       <Navbar pageName="Setting User" />
       {userInfo !== undefined && (
         <Container maxWidth="sm">

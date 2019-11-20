@@ -58,7 +58,7 @@ const Signup = () => {
   const classes = useStyles();
   return (
     <Container component="main" maxWidth="xs">
-      <ToastContainer />
+      <ToastContainer position="bottom-right" />
 
       <CssBaseline />
       <div className={classes.paper}>
