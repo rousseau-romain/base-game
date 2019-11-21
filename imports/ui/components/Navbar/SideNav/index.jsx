@@ -1,32 +1,51 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Button from '@material-ui/core/Button';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { withRouter } from 'react-router-dom';
 
 import { AppContext } from '/imports/ui/context';
 import MenuList from '../MenuList';
 
-const SwipeableTemporaryDrawer = ({ children, pageName }) => {
-  // ToFix: useEffect trigger toggle sidenav so isOpen change instant true -> false
-  const [isOpen, setIsOpen] = useState(true);
+const useStyles = makeStyles(() => ({
+  button: {
+    top: 0,
+    right: 0,
+    position: 'absolute',
+    height: '48px',
+    cursor: 'pointer',
+    backgroundColor: 'red',
+    zIndex: 10,
+  },
+}));
 
-  const { sidebarIsOpen } = useContext(AppContext);
+const SwipeableTemporaryDrawer = ({
+  history, children, pageName, isOpen,
+}) => {
+  const { sidebarIsOpen, toggleSidebar } = useContext(AppContext);
+  if (isOpen) toggleSidebar();
 
-  const toggleSideNav = () => setIsOpen(!isOpen);
-
-  useEffect(() => toggleSideNav(), [sidebarIsOpen]);
-
+  const classes = useStyles();
   return (
-    <div>
-      <SwipeableDrawer
-        open={isOpen}
-        onClose={() => { toggleSideNav(); }}
-        onOpen={() => {}}
+    <SwipeableDrawer
+      open={sidebarIsOpen || false}
+      onClose={() => { toggleSidebar(); }}
+      onOpen={() => {}}
+    >
+      <Button
+        className={classes.button}
+        onClick={() => { history.push('/settings'); toggleSidebar(); }}
       >
-        <MenuList title={pageName} />
-        {children}
-      </SwipeableDrawer>
-    </div>
+        <ExitToAppIcon />
+      </Button>
+      <MenuList title={pageName} />
+
+      {children}
+    </SwipeableDrawer>
   );
 };
 
-export default SwipeableTemporaryDrawer;
+export default withRouter(SwipeableTemporaryDrawer);

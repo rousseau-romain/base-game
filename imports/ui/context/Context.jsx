@@ -14,7 +14,7 @@ export const Provider = (props) => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(sidebarIsOpenInitial);
   const [pageName, setPageName] = useState(pageNameInitial);
 
-  const toggleTest = () => {
+  const toggleSidebar = () => {
     setSidebarIsOpen(!sidebarIsOpen);
   };
 
@@ -23,7 +23,7 @@ export const Provider = (props) => {
     pageName,
     setPageName,
     sidebarIsOpen,
-    toggleTest,
+    toggleSidebar,
   };
 
   // pass the value in provider and return

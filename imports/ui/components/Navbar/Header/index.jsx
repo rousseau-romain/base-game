@@ -67,7 +67,7 @@ const Header = ({ history }) => {
     },
   }));
 
-  const { toggleTest } = useContext(AppContext);
+  const { toggleSidebar } = useContext(AppContext);
   const goUrlBack = () => { history.goBack(); };
 
   const classes = useStyles();
@@ -94,7 +94,7 @@ const Header = ({ history }) => {
             className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
-            onClick={toggleTest}
+            onClick={toggleSidebar}
           >
             <MenuIcon />
           </IconButton>

@@ -20,8 +20,18 @@ import Select from '@material-ui/core/Select';
 import { toast, ToastContainer } from 'react-toastify';
 import Button from './Button';
 
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles({
+  container: {
+    marginTop: '60px',
+  },
+});
+
 
 const Game = ({ match: { params: { gameId } } }) => {
+  const classes = useStyles();
+
   const [gameInfo, setGameInfo] = useState(undefined);
 
   useEffect(() => {
@@ -75,9 +85,9 @@ const Game = ({ match: { params: { gameId } } }) => {
   return (
     <div>
       <ToastContainer position="bottom-right" />
-      <Navbar pageName="Page Game" />
+      <Navbar pageName="Page Game" isOpen />
       {gameInfo !== undefined && (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" className={classes.container}>
           <Grid container spacing={3} justify="flex-start" direction="row">
             <Grid item xs={6}>
               <TextField
