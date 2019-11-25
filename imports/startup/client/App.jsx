@@ -30,13 +30,11 @@ const App = () => (
         {/* <NoLogged path="/missing" component={Missing} /> */}
         <Logged path="/settings" component={Settings} />
         {/* <Logged path="/verify" component={Verify} /> */}
-        {/* <Logged path="/room/:id" component={Room} /> */}
         <Logged path="/games" component={Games} />
         <Logged path="/game/:gameId?" component={Game} />
         <Route path="/landing" component={Landing} />
-        {/* <Logged path="/users" component={Users} /> */}
         {/* <Logged path="/tchatbox" component={TchatBox} /> */}
-        <Route exact path="/" component={Landing} />
+        <Route exact path="/" component={Games} />
         <Route path="*" component={Errors} />
       </Switch>
     </Router>
