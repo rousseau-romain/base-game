@@ -7,6 +7,8 @@ import { Meteor } from 'meteor/meteor';
 
 import { withRouter } from 'react-router-dom';
 
+import { makeStyles } from '@material-ui/core/styles';
+
 import Navbar from '/imports/ui/components/Navbar';
 
 import List from '@material-ui/core/List';
@@ -14,7 +16,13 @@ import ButtonAdd from './ButtonAdd';
 
 import ItemGame from './ItemGame';
 
-function Game({ history }) {
+const useStyles = makeStyles(() => ({
+  list: { marginBottom: '56px' },
+}));
+
+const Game = ({ history }) => {
+  const classes = useStyles();
+
   const [listGames, setListGames] = useState([]);
 
   useEffect(() => {
@@ -69,12 +77,12 @@ function Game({ history }) {
     <div>
       <Navbar pageName="Page Games" />
       <ToastContainer position="bottom-right" />
-      <List dense={false}>
+      <List dense={false} className={classes.list}>
         {displayGames}
       </List>
       <ButtonAdd onClick={goNewGame} />
     </div>
   );
-}
+};
 
 export default withRouter(Game);
