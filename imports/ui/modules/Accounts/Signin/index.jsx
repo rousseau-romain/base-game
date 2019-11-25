@@ -49,7 +49,7 @@ const Signin = () => {
   const signin = (event) => {
     event.preventDefault();
     Meteor.loginWithPassword(username, password, (err) => {
-      if (err) toast.error('An error occured');
+      if (err) toast.error(err.reason);
       else toast.success('Success connect');
     });
   };

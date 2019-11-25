@@ -25,7 +25,7 @@ const Signup = () => {
   const signup = (event) => {
     event.preventDefault();
     Accounts.createUser({ email, password, username }, (err) => {
-      if (err) toast.error('An error occured');
+      if (err) toast.error(err.reason);
       else toast.success('Success connect');
     });
   };
