@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import FolderIcon from '@material-ui/icons/Folder';
+import GamesIcon from '@material-ui/icons/Games';
 
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -19,7 +19,7 @@ const ItemGame = ({
 
   const displayItemImage = useCallback(() => {
     if (imageUrl !== '') return (<Avatar alt="image game" src={imageUrl} />);
-    return (<FolderIcon />);
+    return (<GamesIcon />);
   }, [imageUrl]);
 
   const displayItemFavorite = useCallback(() => {
