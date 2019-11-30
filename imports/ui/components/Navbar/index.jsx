@@ -10,7 +10,9 @@ const NavBar = ({ pageName }) => {
   return (
     <div>
       <Sidenav isOpen={false} pageName={title} />
-      <Header />
+      <div style={{ height: '56px' }}>
+        <Header />
+      </div>
     </div>
   );
 };
