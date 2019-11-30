@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import Users from '..';
 
 
 Meteor.methods({
@@ -36,5 +37,20 @@ Meteor.methods({
     delete user.services;
     delete user.emails;
     return user;
+  },
+
+  'users.get': function () {
+    const users = Users.find({}, {
+      sort: { createdAt: -1 },
+      limit: 50,
+      // skip: 50,
+    }).fetch();
+
+    return users.map((user) => {
+      user.email = user.emails[0].address;
+      delete user.services;
+      delete user.emails;
+      return user;
+    });
   },
 });

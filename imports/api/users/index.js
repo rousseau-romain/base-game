@@ -48,3 +48,5 @@ const UserSchema = new SimpleSchema({
 });
 
 Meteor.users.attachSchema(UserSchema);
+
+export default Meteor.users;

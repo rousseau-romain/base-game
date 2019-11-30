@@ -8,6 +8,7 @@ import Landing from '/imports/ui/modules/Landing';
 // import Users from '/imports/ui/modules/Users';
 // import TchatBox from '/imports/ui/modules/TchatBox';
 import Errors from '/imports/ui/modules/Errors';
+import Users from '/imports/ui/modules/Users';
 import Games from '/imports/ui/modules/Games';
 import Game from '/imports/ui/modules/Game';
 
@@ -30,6 +31,7 @@ const App = () => (
         {/* <NoLogged path="/missing" component={Missing} /> */}
         <Logged path="/settings" component={Settings} />
         {/* <Logged path="/verify" component={Verify} /> */}
+        <Logged path="/users" component={Users} />
         <Logged path="/games" component={Games} />
         <Logged path="/game/:gameId?" component={Game} />
         <Route path="/landing" component={Landing} />

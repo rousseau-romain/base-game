@@ -9,6 +9,7 @@ import GamesIcon from '@material-ui/icons/Games';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
 import { withRouter } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { AppContext } from '/imports/ui/context';
 
 
@@ -39,9 +40,16 @@ const MenuList = ({ history, title }) => {
         <ListItemText primary="Consoles" />
       </ListItem>
       <Divider />
-      <ListItem button onClick={() => { history.push('/settings'); toggleSidebar(); }}>
+      <ListItem button onClick={() => { history.push('/users'); toggleSidebar(); }}>
         <ListItemIcon>
           <PersonIcon />
+        </ListItemIcon>
+        <ListItemText primary="Users" />
+      </ListItem>
+      <Divider />
+      <ListItem button onClick={() => { history.push('/settings'); toggleSidebar(); }}>
+        <ListItemIcon>
+          <SettingsIcon />
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </ListItem>
