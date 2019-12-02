@@ -11,14 +11,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import MessageIcon from '@material-ui/icons/Message';
 
-import Avatar from '@material-ui/core/Avatar';
+import AvatarName from '/imports/ui/components/AvatarName';
 
 const User = ({
   history, id, username, email,
 }) => {
   const [idRoom, setIdRoom] = useState(undefined);
-
-  const style = { backgroundColor: colorFromString(id) };
 
   const goUser = useCallback(() => { history.push(`user/${id}`); }, [history, id]);
 
@@ -41,18 +39,14 @@ const User = ({
   }, [id]);
 
   const displayItemImage = useCallback(() => (
-    <Avatar style={style}>
-      {username.charAt(0)}
-    </Avatar>
+    <AvatarName color={colorFromString(id)} username={username} />
   ),
-  [style, username]);
+  [id, username]);
 
   return (
     <ListItem onClick={goUser}>
       <ListItemAvatar>
-        <Avatar>
-          {displayItemImage()}
-        </Avatar>
+        {displayItemImage()}
       </ListItemAvatar>
       <ListItemText
         primary={username}
