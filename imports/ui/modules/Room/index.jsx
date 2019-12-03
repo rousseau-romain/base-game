@@ -29,16 +29,11 @@ const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
 }));
 
-const Room = ({
-  match: {
-    params: { roomId },
-  },
-  loading,
-  messages,
-}) => {
-  console.log(loading, messages);
+const Room = (props) => {
   const classes = useStyles();
+  // console.log(props);
 
+  const { match: { params: { roomId } }, loading, messages } = props;
   const [listMessages, setListMessages] = useState([]);
 
   useEffect(() => {
@@ -57,6 +52,7 @@ const Room = ({
       createdAt={moment(value.createdAt).format('lll')}
     />
   )), [listMessages]);
+  console.log(loading, messages);
 
   return (
     <div>
@@ -77,15 +73,11 @@ const callWithPromise = (method, ...myParameters) => new Promise((resolve, rejec
   });
 });
 
-export default withTracker(async ({
-  match: {
-    params: { roomId },
-  },
-}) => {
+export default withTracker(({ match: { params: { roomId } } }) => {
   const messagesSubscribe = Meteor.subscribe('messages.get', roomId);
   const loading = !messagesSubscribe.ready();
-  const messages = await callWithPromise('messages.get', roomId);
-  console.log({ loading, messages });
+  const messages = callWithPromise('messages.get', roomId);
 
-  return { loading, messages };
+  // console.log({ loading, messages, messagesSubscribe });
+  return { loading: 'fgh', messages };
 })(Room);
