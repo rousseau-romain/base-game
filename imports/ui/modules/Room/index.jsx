@@ -8,7 +8,9 @@ import moment from 'moment';
 
 import { Meteor } from 'meteor/meteor';
 
-import { withRouter } from 'react-router-dom';
+import Messages from '/imports/api/messages';
+
+import { withTracker } from 'meteor/react-meteor-data';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -25,7 +27,13 @@ const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
 }));
 
-const Room = ({ match: { params: { roomId } } }) => {
+const Room = ({
+  match: {
+    params: { roomId },
+  },
+  loading,
+  messages,
+}) => {
   const classes = useStyles();
 
   const [listMessages, setListMessages] = useState([]);
@@ -47,6 +55,10 @@ const Room = ({ match: { params: { roomId } } }) => {
     />
   )), [listMessages]);
 
+  console.log(loading,
+    messages);
+
+
   return (
     <div>
       <Navbar pageName="Room Message" />
@@ -59,4 +71,23 @@ const Room = ({ match: { params: { roomId } } }) => {
   );
 };
 
-export default withRouter(Room);
+export default withTracker(({
+  match: {
+    params: { roomId },
+  },
+}) => {
+  console.log(roomId);
+
+  const messagesSubscribe = Meteor.subscribe('messages.get', (roomId));
+  const loading = !messagesSubscribe.ready();
+  let message;
+  Meteor.call('messages.get', (roomId), (err, result) => {
+    if (!err) {
+      message = result; console.log(result);
+    } else console.log(err);
+  });
+  return {
+    loading,
+    message,
+  };
+})(Room);

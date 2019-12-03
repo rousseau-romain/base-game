@@ -50,9 +50,8 @@ Meteor.methods({
 
   'messages.get': function (roomId) {
     const messages = Messages.find({ roomId }, {
-      sort: { createdAt: -1 },
+      sort: { createdAt: 1 },
       limit: 50,
-      // skip: 50,
     }).fetch();
     messages.map((message) => {
       const user = Users.findOne(message.userId, {
