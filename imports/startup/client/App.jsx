@@ -11,6 +11,7 @@ import Errors from '/imports/ui/modules/Errors';
 import Users from '/imports/ui/modules/Users';
 import Games from '/imports/ui/modules/Games';
 import Game from '/imports/ui/modules/Game';
+import Room from '/imports/ui/modules/Room';
 
 import { SidebarContextProvider } from '/imports/ui/context';
 
@@ -31,6 +32,7 @@ const App = () => (
         {/* <NoLogged path="/missing" component={Missing} /> */}
         <Logged path="/settings" component={Settings} />
         {/* <Logged path="/verify" component={Verify} /> */}
+        <Logged path="/room/:roomId?" component={Room} />
         <Logged path="/users" component={Users} />
         <Logged path="/games" component={Games} />
         <Logged path="/game/:gameId?" component={Game} />

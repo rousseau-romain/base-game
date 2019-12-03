@@ -13,20 +13,6 @@ Meteor.methods({
     return Rooms.insert({
       usersId,
       createdAt: new Date(),
-      messages: [],
-    });
-  },
-  'rooms.addMessage': function ({ roomId, userId, message }) {
-    if (!this.userId) throw new Meteor.Error('403', 'You must be connected');
-
-    if (!userId === this.userId) throw new Meteor.Error('403', "You can't add message");
-
-    Rooms.update({ _id: roomId }, {
-      $push: {
-        messages: {
-          message, userId,
-        },
-      },
     });
   },
   'rooms.getById': function (roomId) {

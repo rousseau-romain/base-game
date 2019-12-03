@@ -15,7 +15,7 @@ const MessagesSchema = new SimpleSchema({
     max: 255,
   },
   createdAt: {
-    type: String,
+    type: Date,
   },
 });
 

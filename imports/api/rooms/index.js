@@ -10,20 +10,6 @@ const RoomsSchema = new SimpleSchema({
   'usersId.$': {
     type: String,
   },
-  messages: {
-    type: Array,
-    optional: true,
-  },
-  'messages.$': {
-    type: Object,
-  },
-  'messages.$.message': {
-    type: String,
-    max: 255,
-  },
-  'messages.$.userId': {
-    type: String,
-  },
   createdAt: {
     type: String,
   },
