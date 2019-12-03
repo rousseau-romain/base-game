@@ -22,6 +22,8 @@ import Message from './Message';
 
 import InputMessage from './InputMessage';
 
+import { Promise } from 'meteor/promise';
+
 
 const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
@@ -34,6 +36,7 @@ const Room = ({
   loading,
   messages,
 }) => {
+  console.log(loading, messages);
   const classes = useStyles();
 
   const [listMessages, setListMessages] = useState([]);
@@ -55,10 +58,6 @@ const Room = ({
     />
   )), [listMessages]);
 
-  console.log(loading,
-    messages);
-
-
   return (
     <div>
       <Navbar pageName="Room Message" />
@@ -71,23 +70,22 @@ const Room = ({
   );
 };
 
-export default withTracker(({
+const callWithPromise = (method, ...myParameters) => new Promise((resolve, reject) => {
+  Meteor.call(method, ...myParameters, (error, result) => {
+    if (error) reject(error);
+    resolve(result);
+  });
+});
+
+export default withTracker(async ({
   match: {
     params: { roomId },
   },
 }) => {
-  console.log(roomId);
-
-  const messagesSubscribe = Meteor.subscribe('messages.get', (roomId));
+  const messagesSubscribe = Meteor.subscribe('messages.get', roomId);
   const loading = !messagesSubscribe.ready();
-  let message;
-  Meteor.call('messages.get', (roomId), (err, result) => {
-    if (!err) {
-      message = result; console.log(result);
-    } else console.log(err);
-  });
-  return {
-    loading,
-    message,
-  };
+  const messages = await callWithPromise('messages.get', roomId);
+  console.log({ loading, messages });
+
+  return { loading, messages };
 })(Room);
