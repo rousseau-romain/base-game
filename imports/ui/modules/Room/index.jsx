@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Meteor } from 'meteor/meteor';
 
 import Messages from '/imports/api/messages';
+import Users from '/imports/api/users';
 
 import { withTracker } from 'meteor/react-meteor-data';
 
@@ -29,19 +30,18 @@ const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
 }));
 
-const Room = (props) => {
+const Room = ({ match: { params: { roomId } }, loading, messages }) => {
   const classes = useStyles();
   // console.log(props);
 
-  const { match: { params: { roomId } }, loading, messages } = props;
-  const [listMessages, setListMessages] = useState([]);
+  const [listMessages, setListMessages] = useState([messages]);
 
-  useEffect(() => {
-    Meteor.call('messages.get', (roomId), (err, result) => {
-      if (err) toast.error(err);
-      else setListMessages(result);
-    });
-  }, [roomId]);
+  // useEffect(() => {
+  //   Meteor.call('messages.get', (roomId), (err, result) => {
+  //     if (err) toast.error(err);
+  //     else setListMessages(result);
+  //   });
+  // }, [roomId]);
 
   const displayMessages = useMemo(() => listMessages.reverse().map(value => (
     <Message
@@ -59,25 +59,32 @@ const Room = (props) => {
       <Navbar pageName="Room Message" />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
-        {displayMessages}
+        {listMessages.length === 0 | displayMessages}
       </List>
       <InputMessage roomId={roomId} />
     </div>
   );
 };
 
-const callWithPromise = (method, ...myParameters) => new Promise((resolve, reject) => {
-  Meteor.call(method, ...myParameters, (error, result) => {
-    if (error) reject(error);
-    resolve(result);
-  });
-});
-
 export default withTracker(({ match: { params: { roomId } } }) => {
   const messagesSubscribe = Meteor.subscribe('messages.get', roomId);
   const loading = !messagesSubscribe.ready();
-  const messages = callWithPromise('messages.get', roomId);
+  let messages = Messages.find({ roomId }).fetch();
+  messages = messages.map((message) => {
+    const user = Users.findOne(message.userId, {
+      fields: {
+        _id: 1, emails: 1, username: 1,
+      },
+    });
+    message.user = user;
+    message.user.email = message.user.emails[0].address;
+    // delete message.user.services;
+    delete message.user.emails;
+    delete message.userId;
+    return message;
+  });
+
 
   // console.log({ loading, messages, messagesSubscribe });
-  return { loading: 'fgh', messages };
+  return { loading, messages };
 })(Room);
