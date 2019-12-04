@@ -18,32 +18,26 @@ import { makeStyles } from '@material-ui/core/styles';
 import Navbar from '/imports/ui/components/Navbar';
 
 import List from '@material-ui/core/List';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Message from './Message';
 
 import InputMessage from './InputMessage';
 
-import { Promise } from 'meteor/promise';
-
-
 const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
+  circularProgress: {
+    position: 'fixed',
+    transform: 'transform: scale(0.5) translate(-50%, -50%)',
+    top: '50%',
+    left: '50%',
+  },
 }));
 
 const Room = ({ match: { params: { roomId } }, loading, messages }) => {
   const classes = useStyles();
-  // console.log(props);
 
-  const [listMessages, setListMessages] = useState([messages]);
-
-  // useEffect(() => {
-  //   Meteor.call('messages.get', (roomId), (err, result) => {
-  //     if (err) toast.error(err);
-  //     else setListMessages(result);
-  //   });
-  // }, [roomId]);
-
-  const displayMessages = useMemo(() => listMessages.reverse().map(value => (
+  const displayMessages = useMemo(() => messages.map(value => (
     <Message
       id={value._id}
       key={value._id}
@@ -51,15 +45,20 @@ const Room = ({ match: { params: { roomId } }, loading, messages }) => {
       message={value.message}
       createdAt={moment(value.createdAt).format('lll')}
     />
-  )), [listMessages]);
-  console.log(loading, messages);
+  )), [messages]);
+
+  console.log(messages[messages.length - 1]);
 
   return (
     <div>
       <Navbar pageName="Room Message" />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
-        {listMessages.length === 0 | displayMessages}
+        {
+          loading
+            ? displayMessages
+            : <CircularProgress className={classes.circularProgress} />
+        }
       </List>
       <InputMessage roomId={roomId} />
     </div>
@@ -68,7 +67,7 @@ const Room = ({ match: { params: { roomId } }, loading, messages }) => {
 
 export default withTracker(({ match: { params: { roomId } } }) => {
   const messagesSubscribe = Meteor.subscribe('messages.get', roomId);
-  const loading = !messagesSubscribe.ready();
+  const loading = messagesSubscribe.ready();
   let messages = Messages.find({ roomId }).fetch();
   messages = messages.map((message) => {
     const user = Users.findOne(message.userId, {
@@ -78,13 +77,10 @@ export default withTracker(({ match: { params: { roomId } } }) => {
     });
     message.user = user;
     message.user.email = message.user.emails[0].address;
-    // delete message.user.services;
+    delete message.roomId;
     delete message.user.emails;
     delete message.userId;
     return message;
   });
-
-
-  // console.log({ loading, messages, messagesSubscribe });
   return { loading, messages };
 })(Room);
