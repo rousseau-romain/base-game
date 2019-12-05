@@ -46,6 +46,8 @@ Meteor.methods({
       // skip: 50,
     }).fetch();
 
+    users.splice(users.findIndex(u => u._id === this.userId), 1);
+
     return users.map((user) => {
       user.email = user.emails[0].address;
       delete user.services;
