@@ -1,6 +1,4 @@
-import React, {
-  useState, useEffect, useMemo,
-} from 'react';
+import React, { useEffect, useMemo, createRef } from 'react';
 
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -25,7 +23,7 @@ import Message from './Message';
 import InputMessage from './InputMessage';
 
 const useStyles = makeStyles(() => ({
-  list: { marginBottom: '56px' },
+  list: { marginBottom: '22px' },
   circularProgress: {
     position: 'fixed',
     transform: 'transform: scale(0.5) translate(-50%, -50%)',
@@ -37,17 +35,30 @@ const useStyles = makeStyles(() => ({
 const Room = ({ match: { params: { roomId } }, loading, messages }) => {
   const classes = useStyles();
 
+  const refs = messages.reduce((acc, value) => {
+    acc[value._id] = createRef();
+    return acc;
+  }, {});
+
   const displayMessages = useMemo(() => messages.map(value => (
     <Message
       id={value._id}
-      key={value._id}
+      ref={refs[value._id]}
       user={value.user}
+      key={value._id}
       message={value.message}
       createdAt={moment(value.createdAt).format('lll')}
     />
-  )), [messages]);
+  )), [messages, refs]);
 
-  console.log(messages[messages.length - 1]);
+  useEffect(() => {
+    if (messages.length > 0) {
+      refs[messages[messages.length - 1]._id].current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [messages, refs]);
 
   return (
     <div>

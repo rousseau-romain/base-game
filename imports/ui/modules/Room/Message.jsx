@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, forwardRef } from 'react';
 
 import colorFromString from '/imports/utils/colorFromString';
 
@@ -26,9 +26,9 @@ const useStyles = makeStyles({
   },
 });
 
-const User = ({
-  history, id, user, message, createdAt,
-}) => {
+const User = forwardRef(({
+  user, message, createdAt,
+}, ref) => {
   const classes = useStyles();
 
   const displayItemImage = useCallback(() => (
@@ -37,7 +37,7 @@ const User = ({
   [user._id, user.username]);
 
   return (
-    <ListItem>
+    <ListItem ref={ref}>
       <ListItemAvatar className={classes.listItemAvatar}>
         {displayItemImage()}
       </ListItemAvatar>
@@ -70,6 +70,6 @@ const User = ({
       </ListItemSecondaryAction> */}
     </ListItem>
   );
-};
+});
 
 export default User;
