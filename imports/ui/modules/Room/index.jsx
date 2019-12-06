@@ -44,9 +44,9 @@ const Room = ({ match: { params: { roomId } }, loading, messages }) => {
     <Message
       id={value._id}
       ref={refs[value._id]}
-      user={value.user}
       key={value._id}
       message={value.message}
+      userId={value.userId}
       createdAt={moment(value.createdAt).format('lll')}
     />
   )), [messages, refs]);
@@ -79,19 +79,6 @@ const Room = ({ match: { params: { roomId } }, loading, messages }) => {
 export default withTracker(({ match: { params: { roomId } } }) => {
   const messagesSubscribe = Meteor.subscribe('messages.get', roomId);
   const loading = messagesSubscribe.ready();
-  let messages = Messages.find({ roomId }).fetch();
-  messages = messages.map((message) => {
-    const user = Users.findOne(message.userId, {
-      fields: {
-        _id: 1, emails: 1, username: 1,
-      },
-    });
-    message.user = user;
-    message.user.email = message.user.emails[0].address;
-    delete message.roomId;
-    delete message.user.emails;
-    delete message.userId;
-    return message;
-  });
+  const messages = Messages.find({ roomId }).fetch();
   return { loading, messages };
 })(Room);

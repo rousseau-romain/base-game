@@ -1,7 +1,10 @@
-import React, { Fragment, useCallback, forwardRef } from 'react';
+import React, {
+  Fragment, useCallback, forwardRef, useState, useEffect,
+} from 'react';
 
 import colorFromString from '/imports/utils/colorFromString';
 
+import { Meteor } from 'meteor/meteor';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -27,14 +30,24 @@ const useStyles = makeStyles({
 });
 
 const User = forwardRef(({
-  user, message, createdAt,
+  userId, message, createdAt,
 }, ref) => {
+  const [user, setUser] = useState(undefined);
+
+  useEffect(() => {
+    Meteor.call('users.getOne', userId, (err, result) => {
+      if (!err) setUser(result);
+    });
+  }, [userId]);
+
   const classes = useStyles();
 
   const displayItemImage = useCallback(() => (
-    <AvatarName color={colorFromString(user._id)} username={user.username} />
+    user !== undefined
+      ? <AvatarName color={colorFromString(user._id)} username={user.username} />
+      : <div />
   ),
-  [user._id, user.username]);
+  [user]);
 
   return (
     <ListItem ref={ref}>
@@ -54,7 +67,7 @@ const User = forwardRef(({
               className={classes.inline}
               color="textPrimary"
             >
-              {user.username}
+              {user !== undefined ? user.username : ''}
             </Typography>
             {createdAt}
           </Fragment>

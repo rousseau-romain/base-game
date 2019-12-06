@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import Users from '..';
 
-
 Meteor.methods({
 
   'usersInfos.update': function ({
@@ -54,5 +53,15 @@ Meteor.methods({
       delete user.emails;
       return user;
     });
+  },
+
+  'users.getOne': function (idUser) {
+    const users = Users.find({}, {
+    }).fetch();
+    const user = users.find(u => u._id === idUser);
+    user.email = user.emails[0].address;
+    delete user.services;
+    delete user.emails;
+    return user;
   },
 });
