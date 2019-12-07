@@ -7,12 +7,14 @@ export const Provider = (props) => {
   const {
     pageName: pageNameInitial,
     sidebarIsOpen: sidebarIsOpenInitial,
+    inputSearch: inputSearchInitial,
     children,
   } = props;
 
   // Use State to keep the values
   const [sidebarIsOpen, setSidebarIsOpen] = useState(sidebarIsOpenInitial);
   const [pageName, setPageName] = useState(pageNameInitial);
+  const [inputSearch, setInputSearch] = useState(inputSearchInitial);
 
   const toggleSidebar = () => {
     setSidebarIsOpen(!sidebarIsOpen);
@@ -24,6 +26,8 @@ export const Provider = (props) => {
     setPageName,
     sidebarIsOpen,
     toggleSidebar,
+    setInputSearch,
+    inputSearch,
   };
 
   // pass the value in provider and return

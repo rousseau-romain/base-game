@@ -3,6 +3,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -67,7 +68,10 @@ const Header = ({ history }) => {
     },
   }));
 
-  const { toggleSidebar } = useContext(AppContext);
+  const {
+    toggleSidebar,
+    setInputSearch,
+  } = useContext(AppContext);
   const goUrlBack = () => { history.goBack(); };
 
   const classes = useStyles();
@@ -112,8 +116,17 @@ const Header = ({ history }) => {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'Search' }}
+              onInput={e => setInputSearch(e.target.value)}
             />
           </div>
+          <IconButton
+            edge="end"
+            // className={classes.menuButton}
+            color="inherit"
+            aria-label="Open drawer"
+          >
+            <MoreVertIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     </div>
