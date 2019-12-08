@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
 }));
 
-const Game = ({ history }) => {
+const Users = ({ history }) => {
   const classes = useStyles();
 
   const [listUsers, setListUsers] = useState([]);
@@ -43,7 +43,7 @@ const Game = ({ history }) => {
 
   return (
     <div>
-      <Navbar pageName="Page Games" />
+      <Navbar pageName="Page Users" />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
         {displayUsers}
@@ -52,4 +52,4 @@ const Game = ({ history }) => {
   );
 };
 
-export default withRouter(Game);
+export default withRouter(Users);

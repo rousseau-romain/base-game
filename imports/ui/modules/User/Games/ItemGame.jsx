@@ -15,7 +15,7 @@ import EditIcon from '@material-ui/icons/Edit';
 const ItemGame = ({
   history, id, imageUrl, isFavorite, name, toggleFavorite, deleteGame,
 }) => {
-  const goUrl = useCallback(() => { history.push(`game/${id}`); }, [history, id]);
+  const goUrl = useCallback(() => { history.push(`user/game/${id}`); }, [history, id]);
 
   const displayItemImage = useCallback(() => {
     if (imageUrl !== '') return (<Avatar alt="image game" src={imageUrl} />);

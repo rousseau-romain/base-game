@@ -14,7 +14,7 @@ import ButtonAdd from './ButtonAdd';
 
 import ItemGame from './ItemGame';
 
-const Game = ({ history }) => {
+const Games = ({ history }) => {
   const [listGames, setListGames] = useState([]);
 
   useEffect(() => {
@@ -77,4 +77,4 @@ const Game = ({ history }) => {
   );
 };
 
-export default withRouter(Game);
+export default withRouter(Games);

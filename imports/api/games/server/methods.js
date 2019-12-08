@@ -57,6 +57,7 @@ Meteor.methods({
 
     Games.remove(id);
   },
+
   'games.toggleFavorite': function (id) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
@@ -84,10 +85,17 @@ Meteor.methods({
     return games;
   },
 
+  'games.getByName': function (name) {
+    const games = Games.find({ name: { $regex: new RegExp(name, 'i') } }, {
+      sort: { createdAt: -1 },
+      limit: 50,
+    }).fetch();
+    return games;
+  },
+
   'games.getOne': function (id) {
     return Games.findOne(id);
   },
-
 
   'games.last': function () {
     return Games.findOne({}, {

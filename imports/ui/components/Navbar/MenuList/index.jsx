@@ -11,11 +11,28 @@ import { withRouter } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { AppContext } from '/imports/ui/context';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(({
+  expansionPanel: {
+    marginTop: '0px !important',
+    borderRadius: '0px !important',
+  },
+  expansionPanelDetails: {
+    padding: '0px !important',
+  },
+}));
 
 
 const MenuList = ({ history, title }) => {
   const { toggleSidebar } = useContext(AppContext);
 
+  const classes = useStyles();
 
   return (
     <List
@@ -53,6 +70,26 @@ const MenuList = ({ history, title }) => {
         </ListItemIcon>
         <ListItemText primary="Settings" />
       </ListItem>
+      <Divider />
+      <ExpansionPanel className={classes.expansionPanel}>
+        <ExpansionPanelSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>Search</Typography>
+        </ExpansionPanelSummary>
+        <Divider />
+        <ExpansionPanelDetails className={classes.expansionPanelDetails}>
+          <ListItem button onClick={() => { history.push('/search/games'); toggleSidebar(); }}>
+            <ListItemIcon>
+              <GamesIcon />
+            </ListItemIcon>
+            <ListItemText primary="Games" />
+          </ListItem>
+        </ExpansionPanelDetails>
+      </ExpansionPanel>
+
     </List>
   );
 };
