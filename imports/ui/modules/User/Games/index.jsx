@@ -24,7 +24,7 @@ const Games = ({ history }) => {
     });
   }, []);
 
-  const goNewGame = useCallback(() => { history.push('/game/new'); }, [history]);
+  const goNewGame = useCallback(() => { history.push('/user/game/new'); }, [history]);
 
   const deleteGame = useCallback((id, e) => {
     e.stopPropagation();
