@@ -45,7 +45,7 @@ const App = () => (
         <Logged path="/game/:gameId?" component={Game} />
         <Logged path="/user/game/:gameId?" component={UserGame} />
         <Logged path="/search/games" component={SearchGames} />
-        <Route path="/landing" component={Landing} />
+        {/* <Route path="/landing" component={Landing} /> */}
         <Route exact path="/" component={Games} />
         <Route path="*" component={Errors} />
       </Switch>
