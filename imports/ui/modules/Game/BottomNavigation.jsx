@@ -46,10 +46,13 @@ const BottomNav = ({ history, userId, gameId }) => {
   }, [userId]);
 
   return (
-    <BottomNavigation className={classes.botomNavigation}>
-      <BottomNavigationAction className={classes.buttonNav} label="Call" icon={<CallIcon />} />
-      <BottomNavigationAction className={classes.buttonNav} label="Message" icon={<MessageIcon />} onClick={goMessageUser} />
-    </BottomNavigation>
+    <div>
+      <div style={{ height: '57px' }} />
+      <BottomNavigation className={classes.botomNavigation}>
+        <BottomNavigationAction className={classes.buttonNav} label="Call" icon={<CallIcon />} />
+        <BottomNavigationAction className={classes.buttonNav} label="Message" icon={<MessageIcon />} onClick={goMessageUser} />
+      </BottomNavigation>
+    </div>
   );
 };
 
