@@ -15,6 +15,7 @@ const useStyles = makeStyles({
     transform: 'translateY(-50%)',
     top: '50%',
     position: 'sticky',
+    WebkitPosition: 'sticky',
   },
 });
 

@@ -70,7 +70,7 @@ const Game = ({ history, match: { params: { gameId } } }) => {
       </Container>
       {gameInfo
         ? <BottomNavigation history={history} userId={gameInfo.userId} gameId={gameInfo._id} />
-        : <di />
+        : <div />
       }
 
     </div>
