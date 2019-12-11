@@ -19,7 +19,6 @@ const useStyles = makeStyles({
   },
   buttonNav: {
     color: colors('primary.base'),
-    paddingTop: '25px!important',
   },
 });
 
