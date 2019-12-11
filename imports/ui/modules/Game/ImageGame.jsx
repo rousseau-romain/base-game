@@ -6,16 +6,13 @@ const useStyles = makeStyles({
     width: '100%',
     maxHeight: '250px',
     overflow: 'hidden',
-    backgroundColor: 'red',
     margin: 0,
   },
   img: {
     width: '100%',
-    display: 'block',
     transform: 'translateY(-50%)',
-    top: '50%',
-    position: 'sticky',
-    WebkitPosition: 'sticky',
+    top: '125px',
+    position: 'relative',
   },
 });
 
