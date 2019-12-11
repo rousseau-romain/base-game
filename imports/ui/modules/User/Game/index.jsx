@@ -87,17 +87,6 @@ const Game = ({ match: { params: { gameId } } }) => {
                 margin="normal"
               />
             </Grid>
-            {/* <Grid item xs={12}>
-              <TextField
-                id="standard-multiline-flexible"
-                label="Multiline"
-                multiline
-                rowsMax="4"
-                value={gameInfo.paragraph}
-                onChange={changeGameInfo('paragraph')}
-                margin="normal"
-              />
-            </Grid> */}
             <Grid item xs={6}>
               <TextField
                 id="standard-imageUrl"
@@ -182,6 +171,18 @@ const Game = ({ match: { params: { gameId } } }) => {
                   ))}
                 </Select>
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="standard-multiline-flexible"
+                label="Multiline"
+                multiline
+                rowsMax="4"
+                value={gameInfo.paragraph}
+                onChange={changeGameInfo('paragraph')}
+                margin="normal"
+                fullWidth
+              />
             </Grid>
             <Grid item xs={12}>
               <Button
