@@ -5,7 +5,7 @@ import Users from '..';
 Meteor.methods({
 
   'usersInfos.update': function ({
-    username, dateOfBirth, city, email, gender,
+    username, dateOfBirth, city, email, gender, number,
   }) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
@@ -19,15 +19,14 @@ Meteor.methods({
 
     if (username) Accounts.setUsername(this.userId, username);
 
-    if (typeof (dateOfBirth) === 'object' && typeof (city) === 'string' && typeof (gender) === 'string') {
-      Meteor.users.update({ _id: Meteor.userId() }, {
-        $set: {
-          dateOfBirth,
-          city,
-          gender,
-        },
-      }, { upsert: true });
-    }
+    Meteor.users.update({ _id: Meteor.userId() }, {
+      $set: {
+        dateOfBirth,
+        city,
+        gender,
+        number,
+      },
+    });
   },
 
   'usersInfos.get': function () {

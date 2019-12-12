@@ -5,7 +5,7 @@ import { Route, Redirect } from 'react-router-dom';
 
 const NoLogged = ({ path, component, userId }) => {
   if (userId) {
-    return <Redirect to="/signin" />;
+    return <Redirect to="/games" />;
   }
   return <Route path={path} component={component} />;
 };

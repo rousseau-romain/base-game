@@ -27,6 +27,7 @@ const BottomNav = ({ history, userId, gameId }) => {
   const classes = useStyles();
 
   const [idRoom, setIdRoom] = useState(undefined);
+  const [userInfo, setUserInfo] = useState(undefined);
 
   const goMessageUser = useCallback(() => {
     if (idRoom === undefined) {
@@ -42,13 +43,27 @@ const BottomNav = ({ history, userId, gameId }) => {
       if (err) console.log(err);
       else setIdRoom(result.length === 0 ? undefined : result[0]);
     });
+    Meteor.call('users.getOne', (userId), (err, result) => {
+      if (err) console.log(err);
+      else setUserInfo(result);
+    });
   }, [userId]);
+
+  const buttonCall = () => {
+    if (userInfo) {
+      console.log(userInfo);
+      if (userInfo.number) {
+        return <BottomNavigationAction href={`tel:[${userInfo.number}]`} className={classes.buttonNav} label="Call" icon={<CallIcon />} />;
+      }
+    }
+    return {};
+  };
 
   return (
     <div>
       <div style={{ height: '57px' }} />
       <BottomNavigation className={classes.botomNavigation}>
-        <BottomNavigationAction className={classes.buttonNav} label="Call" icon={<CallIcon />} />
+        {buttonCall}
         <BottomNavigationAction className={classes.buttonNav} label="Message" icon={<MessageIcon />} onClick={goMessageUser} />
       </BottomNavigation>
     </div>

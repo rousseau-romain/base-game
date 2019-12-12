@@ -79,6 +79,16 @@ const Settings = () => {
                 fullWidth
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="standard-number"
+                label="Number"
+                value={userInfo.number || ''}
+                onChange={changeUserInfo('number')}
+                margin="normal"
+                fullWidth
+              />
+            </Grid>
             <Grid item xs={6} container>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
