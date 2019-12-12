@@ -9,10 +9,12 @@ const useStyles = makeStyles({
     margin: 0,
   },
   img: {
-    width: '100%',
-    transform: 'translateY(-50%)',
+    transform: 'translate(-50%, -50%)',
     top: '125px',
     position: 'relative',
+    minHeight: '250px',
+    minWidth: '100%',
+    left: '50%',
   },
 });
 
