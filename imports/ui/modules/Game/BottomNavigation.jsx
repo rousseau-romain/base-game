@@ -49,21 +49,14 @@ const BottomNav = ({ history, userId, gameId }) => {
     });
   }, [userId]);
 
-  const buttonCall = () => {
-    if (userInfo) {
-      console.log(userInfo);
-      if (userInfo.number) {
-        return <BottomNavigationAction href={`tel:[${userInfo.number}]`} className={classes.buttonNav} label="Call" icon={<CallIcon />} />;
-      }
-    }
-    return {};
-  };
-
   return (
     <div>
       <div style={{ height: '57px' }} />
       <BottomNavigation className={classes.botomNavigation}>
-        {buttonCall}
+        {userInfo && userInfo.number
+          ? <BottomNavigationAction href={`tel:${userInfo.number}`} className={classes.buttonNav} label="Call" icon={<CallIcon />} />
+          : ''
+        }
         <BottomNavigationAction className={classes.buttonNav} label="Message" icon={<MessageIcon />} onClick={goMessageUser} />
       </BottomNavigation>
     </div>
