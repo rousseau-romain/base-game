@@ -3,7 +3,7 @@ import Games from '..';
 
 Meteor.methods({
   'games.create': function ({
-    name, paragraph, isFavorite, imageUrl, type, content, status, state,
+    name, paragraph, isFavorite, imageUrl, type, content, status, state, showMarket, market,
   }) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
@@ -20,12 +20,14 @@ Meteor.methods({
       content,
       status,
       state,
+      showMarket,
+      market,
     });
     return Games.findOne({}, { sort: { createdAt: -1, limit: 1 } });
   },
 
   'games.update': function ({
-    id, name, isFavorite, paragraph, imageUrl, type, content, status, state,
+    id, name, isFavorite, paragraph, imageUrl, type, content, status, state, showMarket, market,
   }) {
     if (!this.userId) {
       throw new Meteor.Error('403', 'You must be connected');
@@ -38,7 +40,7 @@ Meteor.methods({
     }
     const test = Games.update(id, {
       $set: {
-        name, isFavorite, paragraph, imageUrl, type, content, status, state,
+        name, isFavorite, paragraph, imageUrl, type, content, status, state, showMarket, market,
       },
     });
     return test;

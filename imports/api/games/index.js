@@ -13,7 +13,7 @@ const GameSchema = new SimpleSchema({
   },
   paragraph: {
     type: String,
-    max: 500,
+    max: 1000,
   },
   isFavorite: {
     type: Boolean,
@@ -41,6 +41,22 @@ const GameSchema = new SimpleSchema({
     type: String,
     max: 50,
   },
+  showMarket: {
+    type: Boolean,
+  },
+  market: {
+    type: Object,
+  },
+  'market.price': {
+    type: String,
+    optional: true,
+  },
+  'market.paragraph': {
+    type: String,
+    optional: true,
+    max: 1000,
+  },
+
 });
 
 Games.attachSchema(GameSchema);
