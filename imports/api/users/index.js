@@ -25,11 +25,9 @@ const UserSchema = new SimpleSchema({
   },
   username: {
     type: String,
-    optional: true,
   },
   emails: {
     type: Array,
-    optional: true,
   },
   'emails.$': {
     type: Object,
