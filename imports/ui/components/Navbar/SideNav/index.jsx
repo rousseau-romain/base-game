@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SwipeableTemporaryDrawer = ({
-  history, children, pageName, isOpen,
+  history, children, isOpen,
 }) => {
   const { sidebarIsOpen, toggleSidebar } = useContext(AppContext);
   if (isOpen) toggleSidebar();
@@ -52,7 +52,7 @@ const SwipeableTemporaryDrawer = ({
       >
         <ExitToAppIcon />
       </Button>
-      <MenuList title={pageName} />
+      <MenuList />
 
       {children}
     </SwipeableDrawer>

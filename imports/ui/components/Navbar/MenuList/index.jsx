@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, Fragment } from 'react';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -17,6 +17,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { makeStyles } from '@material-ui/core/styles';
+import { Meteor } from 'meteor/meteor';
 
 const useStyles = makeStyles(({
   expansionPanel: {
@@ -28,8 +29,7 @@ const useStyles = makeStyles(({
   },
 }));
 
-
-const MenuList = ({ history, title }) => {
+const MenuList = ({ history }) => {
   const { toggleSidebar } = useContext(AppContext);
 
   const classes = useStyles();
@@ -39,9 +39,12 @@ const MenuList = ({ history, title }) => {
       component="nav"
       aria-labelledby="list-pages"
       subheader={(
-        <ListSubheader component="div" id="list-sidenav">
-          {title === undefined ? ('Menu List') : (title)}
-        </ListSubheader>
+        <Fragment>
+          <ListSubheader component="div" id="list-sidenav">
+            {Meteor.user().username}
+          </ListSubheader>
+          <Divider />
+        </Fragment>
       )}
     >
       <ListItem button onClick={() => { history.push('/games'); toggleSidebar(); }}>
