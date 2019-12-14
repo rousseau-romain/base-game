@@ -41,17 +41,17 @@ const GameSchema = new SimpleSchema({
     type: String,
     max: 50,
   },
-  showMarket: {
+  isPublic: {
     type: Boolean,
   },
-  market: {
+  public: {
     type: Object,
   },
-  'market.price': {
+  'public.quantity': {
     type: String,
     optional: true,
   },
-  'market.paragraph': {
+  'public.paragraph': {
     type: String,
     optional: true,
     max: 1000,

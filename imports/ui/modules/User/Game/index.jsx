@@ -39,8 +39,8 @@ const Game = ({ match: { params: { gameId } } }) => {
         content: arrayParamsGame.CONTENT.FULL,
         status: arrayParamsGame.STATUS.NOT_STARTED,
         state: arrayParamsGame.STATE.NEW,
-        showMarket: false,
-        market: {},
+        isPublic: false,
+        public: {},
       });
     } else {
       Meteor.call('games.getOne', (gameId), (err, result) => {
@@ -56,7 +56,7 @@ const Game = ({ match: { params: { gameId } } }) => {
       setGameInfo({ ...gameInfo, [type]: value });
     } else {
       switch (type) {
-      case 'showMarket':
+      case 'isPublic':
         setGameInfo({ ...gameInfo, [type]: event.target.checked });
         break;
       default:
@@ -84,8 +84,8 @@ const Game = ({ match: { params: { gameId } } }) => {
       content: gameInfo.content,
       status: gameInfo.status,
       state: gameInfo.state,
-      showMarket: gameInfo.showMarket,
-      market: gameInfo.market,
+      isPublic: gameInfo.isPublic,
+      public: gameInfo.public,
     }, (err) => {
       if (err) toast.error(err.reason);
       else toast.success('Game added');
@@ -207,29 +207,29 @@ const Game = ({ match: { params: { gameId } } }) => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Typography id="range-slider" gutterBottom>Price</Typography>
-                <Slider
-                  defaultValue={gameInfo.market.price ? gameInfo.market.price : 0}
-                  onChange={changeGameInfo('market.price')}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="range-slider"
-                />
-              </Grid>
-              <Grid item xs={12}>
                 <FormControlLabel
                   control={(
                     <Switch
-                      checked={gameInfo.showMarket}
-                      onChange={changeGameInfo('showMarket')}
-                      value={gameInfo.showMarket}
+                      checked={gameInfo.isPublic}
+                      onChange={changeGameInfo('isPublic')}
+                      value={gameInfo.isPublic}
                       color="primary"
                     />
                   )}
-                  label="Show on the market"
+                  label="Show on the public"
                 />
               </Grid>
-              {gameInfo.showMarket && (
+              {gameInfo.isPublic && (
                 <Fragment>
+                  <Grid item xs={12}>
+                    <Typography id="range-slider" gutterBottom>quantity</Typography>
+                    <Slider
+                      defaultValue={gameInfo.public.quantity ? gameInfo.public.quantity : 0}
+                      onChange={changeGameInfo('public.quantity')}
+                      valueLabelDisplay="auto"
+                      aria-labelledby="range-slider"
+                    />
+                  </Grid>
                   <Grid item xs={12}>
                     <Divider />
                   </Grid>
