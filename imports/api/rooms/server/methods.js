@@ -17,7 +17,7 @@ Meteor.methods({
   'rooms.getById': function (roomId) {
     return Rooms.findOne(roomId);
   },
-  'rooms.getByIdUsers': async function (usersId) {
+  'rooms.getByIdUsers': function (usersId) {
     if (!this.userId) throw new Meteor.Error('403', 'You must be connected');
     usersId.push(this.userId);
     return Rooms.find({ usersId: { $all: usersId } }).fetch();

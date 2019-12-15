@@ -13,7 +13,7 @@ import MessageIcon from '@material-ui/icons/Message';
 
 import AvatarName from '/imports/ui/components/AvatarName';
 
-const User = ({
+const Message = ({
   history, id, username, email,
 }) => {
   const [idRoom, setIdRoom] = useState(undefined);
@@ -65,4 +65,4 @@ const User = ({
   );
 };
 
-export default User;
+export default Message;

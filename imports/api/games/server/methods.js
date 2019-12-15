@@ -90,10 +90,16 @@ Meteor.methods({
 
   'games.getByName': function (name) {
     if (!this.userId) throw new Meteor.Error('403', 'You must be connected');
-    const games = Games.find({ name: { $regex: new RegExp(name, 'i') } }, {
-      sort: { createdAt: -1 },
-      limit: 50,
-    }).fetch();
+    const games = Games.find(
+      { 
+        name: { $regex: new RegExp(name, 'i') },
+        userId: {$not: {$eq: this.userId}} 
+      },
+      {
+        sort: { createdAt: -1 },
+        limit: 50,
+      }
+    ).fetch();
     return games;
   },
 

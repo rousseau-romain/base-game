@@ -13,43 +13,42 @@ import Navbar from '/imports/ui/components/Navbar';
 
 import List from '@material-ui/core/List';
 
-import User from './User';
+import Message from './Message';
 
 const useStyles = makeStyles(() => ({
   list: { marginBottom: '56px' },
 }));
 
-const Users = ({ history }) => {
+const Messages = ({ history }) => {
   const classes = useStyles();
 
-  const [listUsers, setListUsers] = useState([]);
+  const [listMessage, setListMessage] = useState([]);
 
   useEffect(() => {
-    Meteor.call('users.get', {}, (err, result) => {
+    Meteor.call('rooms.getByIdUsers', ([]), (err, result) => {
       if (err) toast.error(err.reason);
-      else setListUsers(result);
+      else setListMessage(result);
     });
   }, []);
-
-  const displayUsers = useMemo(() => listUsers.map(value => (
-    <User
+  const displayMessage = useMemo(() => listMessage.map(value => (
+    <Message
       history={history}
       id={value._id}
       key={value._id}
       username={value.username}
       email={value.email}
     />
-  )), [history, listUsers]);
+  )), [history, listMessage]);
 
   return (
     <div>
       <Navbar />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
-        {displayUsers}
+        {displayMessage.length > 0 ? displayMessage : "U haven't any messages."}
       </List>
     </div>
   );
 };
 
-export default withRouter(Users);
+export default withRouter(Messages);

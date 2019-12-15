@@ -8,13 +8,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import GamesIcon from '@material-ui/icons/Games';
 import VideogameAssetIcon from '@material-ui/icons/VideogameAsset';
 import { withRouter } from 'react-router-dom';
-import PersonIcon from '@material-ui/icons/Person';
 import { AppContext } from '/imports/ui/context';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MessageIcon from '@material-ui/icons/Message';
 import { makeStyles } from '@material-ui/core/styles';
 import { Meteor } from 'meteor/meteor';
 
@@ -46,11 +46,11 @@ const MenuList = ({ history }) => {
         </Fragment>
       )}
     >
-      <ListItem button onClick={() => { history.push('/users'); toggleSidebar(); }}>
+      <ListItem button onClick={() => { history.push('/messages'); toggleSidebar(); }}>
         <ListItemIcon>
-          <PersonIcon />
+          <MessageIcon />
         </ListItemIcon>
-        <ListItemText primary="Users" />
+        <ListItemText primary="Messages" />
       </ListItem>
       <Divider />
       <ListItem button onClick={() => { history.push('/games'); toggleSidebar(); }}>
