@@ -16,7 +16,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
@@ -51,18 +50,16 @@ const Game = ({ match: { params: { gameId } } }) => {
   }, [gameId]);
 
   const changeGameInfo = type => (event, value) => {
-    const dependency = type.split('.');
-    if (dependency[1]) {
+    switch (type) {
+    case 'isPublic':
+      setGameInfo({ ...gameInfo, [type]: event.target.checked });
+      break;
+    case 'quantity':
       setGameInfo({ ...gameInfo, [type]: value });
-    } else {
-      switch (type) {
-      case 'isPublic':
-        setGameInfo({ ...gameInfo, [type]: event.target.checked });
-        break;
-      default:
-        setGameInfo({ ...gameInfo, [type]: event.target.value });
-        break;
-      }
+      break;
+    default:
+      setGameInfo({ ...gameInfo, [type]: event.target.value });
+      break;
     }
   };
 
@@ -74,6 +71,7 @@ const Game = ({ match: { params: { gameId } } }) => {
       if (err) toast.error(err.reason);
     });
   };
+
   const addNewGameInfo = () => {
     Meteor.call('games.create', {
       name: gameInfo.name,
@@ -207,6 +205,15 @@ const Game = ({ match: { params: { gameId } } }) => {
                 />
               </Grid>
               <Grid item xs={12}>
+                <Typography id="range-slider" gutterBottom>quantity</Typography>
+                <Slider
+                  defaultValue={gameInfo.quantity ? gameInfo.quantity : 0}
+                  onChange={changeGameInfo('quantity')}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <FormControlLabel
                   control={(
                     <Switch
@@ -221,18 +228,6 @@ const Game = ({ match: { params: { gameId } } }) => {
               </Grid>
               {gameInfo.isPublic && (
                 <Fragment>
-                  <Grid item xs={12}>
-                    <Typography id="range-slider" gutterBottom>quantity</Typography>
-                    <Slider
-                      defaultValue={gameInfo.public.quantity ? gameInfo.public.quantity : 0}
-                      onChange={changeGameInfo('public.quantity')}
-                      valueLabelDisplay="auto"
-                      aria-labelledby="range-slider"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
                   <Grid item xs={12}>
                     {''}
                   </Grid>

@@ -44,12 +44,12 @@ const GameSchema = new SimpleSchema({
   isPublic: {
     type: Boolean,
   },
+  quantity: {
+    type: Number,
+    optional: true,
+  },
   public: {
     type: Object,
-  },
-  'public.quantity': {
-    type: String,
-    optional: true,
   },
   'public.paragraph': {
     type: String,
