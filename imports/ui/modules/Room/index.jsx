@@ -62,7 +62,7 @@ const Room = ({ match: { params: { roomId } }, loading, messages }) => {
 
   return (
     <div>
-      <Navbar pageName="Room Message" />
+      <Navbar />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
         {

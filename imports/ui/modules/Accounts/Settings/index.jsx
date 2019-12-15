@@ -45,7 +45,7 @@ const Settings = () => {
   return (
     <div>
       <ToastContainer position="bottom-right" />
-      <Navbar pageName="Setting User" />
+      <Navbar />
       {userInfo !== undefined && (
         <Container maxWidth="sm">
           <Grid alignItems="center" container spacing={3} justify="flex-start" direction="row">

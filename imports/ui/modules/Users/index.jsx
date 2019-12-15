@@ -43,7 +43,7 @@ const Users = ({ history }) => {
 
   return (
     <div>
-      <Navbar pageName="Page Users" />
+      <Navbar />
       <ToastContainer position="bottom-right" />
       <List dense={false} className={classes.list}>
         {displayUsers}

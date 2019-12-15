@@ -93,7 +93,7 @@ const Game = ({ match: { params: { gameId } } }) => {
   return (
     <div>
       <ToastContainer position="bottom-right" />
-      <Navbar pageName="Page Game" isOpen />
+      <Navbar />
       {gameInfo && (
         <Fragment>
           <Container maxWidth="sm">
@@ -195,7 +195,7 @@ const Game = ({ match: { params: { gameId } } }) => {
               <Grid item xs={12}>
                 <TextField
                   id="standard-multiline-flexible"
-                  label="Multiline"
+                  label="Paragraph"
                   multiline
                   rowsMax="4"
                   value={gameInfo.paragraph}

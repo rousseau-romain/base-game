@@ -67,7 +67,7 @@ const Games = ({ history }) => {
 
   return (
     <div>
-      <Navbar pageName="Page Games" />
+      <Navbar />
       <ToastContainer position="bottom-right" />
       <List dense={false}>
         {displayGames}

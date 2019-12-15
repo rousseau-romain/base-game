@@ -34,7 +34,7 @@ const Game = ({ history, match: { params: { gameId } } }) => {
 
   return (
     <div>
-      <Navbar pageName="Page Game" isOpen />
+      <Navbar />
       {gameInfo
         ? <ImageGame url={gameInfo.imageUrl} alt="img" />
         : <Skeleton variant="rect" width="100%" height="250px" />
