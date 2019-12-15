@@ -7,6 +7,7 @@ import { Meteor } from 'meteor/meteor';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Button from '@material-ui/core/Button';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { withRouter } from 'react-router-dom';
 
 import { AppContext } from '/imports/ui/context';
@@ -17,11 +18,14 @@ const useStyles = makeStyles(() => ({
     zIndex: 10,
     top: 0,
     right: 0,
-    position: 'absolute',
     height: '48px',
-    minWidth: '48px',
+    minWidth: '40px',
     backgroundColor: 'transparent',
     cursor: 'pointer',
+  },
+  listButton: {
+    position: 'absolute',
+    right: 0,
   },
 }));
 
@@ -40,18 +44,26 @@ const SwipeableTemporaryDrawer = ({
       onClose={() => { toggleSidebar(); }}
       onOpen={() => {}}
     >
-      <Button
-        className={classes.button}
-        onClick={() => {
-          logout();
-          setTimeout(() => {
-            history.push('/signin');
-            toggleSidebar();
-          }, 500);
-        }}
-      >
-        <ExitToAppIcon />
-      </Button>
+      <div className={classes.listButton}>
+        <Button
+          className={classes.button}
+          onClick={() => { history.push('/settings'); toggleSidebar(); }}
+        >
+          <SettingsIcon />
+        </Button>
+        <Button
+          className={classes.button}
+          onClick={() => {
+            logout();
+            setTimeout(() => {
+              history.push('/signin');
+              toggleSidebar();
+            }, 150);
+          }}
+        >
+          <ExitToAppIcon />
+        </Button>
+      </div>
       <MenuList />
 
       {children}
