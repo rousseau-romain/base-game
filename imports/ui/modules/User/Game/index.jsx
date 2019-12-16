@@ -20,17 +20,32 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import useDebounce from './useDebounce';
 import { toast, ToastContainer } from 'react-toastify';
 import Button from './Button';
 
 const Game = ({ match: { params: { gameId } } }) => {
   const [gameInfo, setGameInfo] = useState(undefined);
+  const [gameList, setGameList] = useState(undefined);
+  const debouncedSearchTerm = useDebounce(gameInfo, 500);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      Meteor.call('api.games.getByName', (gameInfo.name), (err, result) => {
+        if (err) console.log(err.reason);
+        else { setGameList(result); console.log(result); }
+      });
+    }
+  },
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  [debouncedSearchTerm]);
+
 
   useEffect(() => {
     if (gameId === 'new') {
       setGameInfo({
-        name: 'New game',
+        name: '',
         paragraph: 'Game paragraph',
         isFavorite: false,
         imageUrl: '',
@@ -56,6 +71,19 @@ const Game = ({ match: { params: { gameId } } }) => {
       break;
     case 'quantity':
       setGameInfo({ ...gameInfo, [type]: value });
+      break;
+    case 'name':
+      if (value !== '' || gameInfo.name.length === 1) {
+        setGameInfo({ ...gameInfo, [type]: value });
+      }
+      break;
+    case 'nameList':
+      console.log('nl | ', gameList[event.target.value].name);
+      setGameInfo({ ...gameInfo, name: gameList[event.target.value].name });
+      Meteor.call('api.games.getImageById', (gameList[event.target.value].id), (err, result) => {
+        if (err) console.log(err.reason);
+        else { setTimeout(() => { setGameInfo({ ...gameInfo, imageUrl: result[0].url.substring(2) }); }, 100); }
+      });
       break;
     default:
       setGameInfo({ ...gameInfo, [type]: event.target.value });
@@ -89,6 +117,9 @@ const Game = ({ match: { params: { gameId } } }) => {
       else toast.success('Game added');
     });
   };
+  if (gameInfo) {
+    // console.log(gameInfo.name);
+  }
 
   return (
     <div>
@@ -99,12 +130,22 @@ const Game = ({ match: { params: { gameId } } }) => {
           <Container maxWidth="sm">
             <Grid container spacing={3} justify="flex-start" direction="row">
               <Grid item xs={6}>
-                <TextField
-                  id="standard-name"
-                  label="Name"
-                  value={gameInfo.name}
-                  onChange={changeGameInfo('name')}
-                  margin="normal"
+                <Autocomplete
+                  id="autocomplete"
+                  freeSolo
+                  options={gameList ? gameList.map(game => game.name) : []}
+                  inputValue={gameInfo.name}
+                  onInputChange={changeGameInfo('name')}
+                  onClose={changeGameInfo('nameList')}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      id="standard-name"
+                      label=" "
+                      fullWidth
+                      margin="normal"
+                    />
+                  )}
                 />
               </Grid>
               <Grid item xs={6}>
