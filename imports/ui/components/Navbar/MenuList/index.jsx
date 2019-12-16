@@ -40,7 +40,7 @@ const MenuList = ({ history }) => {
       subheader={(
         <Fragment>
           <ListSubheader component="div" id="list-sidenav">
-            {Meteor.user().username}
+            {Meteor.user() !== undefined && Meteor.user() !== null ? Meteor.user().username : 'Username'}
           </ListSubheader>
           <Divider />
         </Fragment>
