@@ -20,26 +20,26 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import useDebounce from './useDebounce';
+// import Autocomplete from '@material-ui/lab/Autocomplete';
+// import useDebounce from './useDebounce';
 import { toast, ToastContainer } from 'react-toastify';
 import Button from './Button';
 
 const Game = ({ match: { params: { gameId } } }) => {
   const [gameInfo, setGameInfo] = useState(undefined);
-  const [gameList, setGameList] = useState(undefined);
-  const debouncedSearchTerm = useDebounce(gameInfo, 500);
+  // const [gameList, setGameList] = useState(undefined);
+  // const debouncedSearchTerm = useDebounce(gameInfo, 500);
 
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      Meteor.call('api.games.getByName', (gameInfo.name), (err, result) => {
-        if (err) console.log(err.reason);
-        else { setGameList(result); console.log(result); }
-      });
-    }
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [debouncedSearchTerm]);
+  // useEffect(() => {
+  //   if (debouncedSearchTerm) {
+  //     Meteor.call('api.games.getByName', (gameInfo.name), (err, result) => {
+  //       if (err) console.log(err.reason);
+  //       else { setGameList(result); console.log(result); }
+  //     });
+  //   }
+  // },
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // [debouncedSearchTerm]);
 
 
   useEffect(() => {
@@ -72,19 +72,19 @@ const Game = ({ match: { params: { gameId } } }) => {
     case 'quantity':
       setGameInfo({ ...gameInfo, [type]: value });
       break;
-    case 'name':
-      if (value !== '' || gameInfo.name.length === 1) {
-        setGameInfo({ ...gameInfo, [type]: value });
-      }
-      break;
-    case 'nameList':
-      console.log('nl | ', gameList[event.target.value].name);
-      setGameInfo({ ...gameInfo, name: gameList[event.target.value].name });
-      Meteor.call('api.games.getImageById', (gameList[event.target.value].id), (err, result) => {
-        if (err) console.log(err.reason);
-        else { setTimeout(() => { setGameInfo({ ...gameInfo, imageUrl: result[0].url.substring(2) }); }, 100); }
-      });
-      break;
+    // case 'name':
+    //   if (value !== '' || gameInfo.name.length === 1) {
+    //     setGameInfo({ ...gameInfo, [type]: value });
+    //   }
+    //   break;
+    // case 'nameList':
+    //   console.log('nl | ', gameList[event.target.value].name);
+    //   setGameInfo({ ...gameInfo, name: gameList[event.target.value].name });
+    //   Meteor.call('api.games.getImageById', (gameList[event.target.value].id), (err, result) => {
+    //     if (err) console.log(err.reason);
+    //     else { setTimeout(() => { setGameInfo({ ...gameInfo, imageUrl: result[0].url.substring(2) }); }, 100); }
+    //   });
+    //   break;
     default:
       setGameInfo({ ...gameInfo, [type]: event.target.value });
       break;
@@ -130,23 +130,25 @@ const Game = ({ match: { params: { gameId } } }) => {
           <Container maxWidth="sm">
             <Grid container spacing={3} justify="flex-start" direction="row">
               <Grid item xs={6}>
-                <Autocomplete
+                {/* <Autocomplete
                   id="autocomplete"
                   freeSolo
                   options={gameList ? gameList.map(game => game.name) : []}
                   inputValue={gameInfo.name}
                   onInputChange={changeGameInfo('name')}
                   onClose={changeGameInfo('nameList')}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      id="standard-name"
-                      label=" "
-                      fullWidth
-                      margin="normal"
-                    />
-                  )}
+                  renderInput={params => ( */}
+                <TextField
+                  // {...params}
+                  id="standard-name"
+                  label="Name"
+                  onChange={changeGameInfo('name')}
+                  value={gameInfo.name}
+                  fullWidth
+                  margin="normal"
                 />
+                {/* )} */}
+                {/* /> */}
               </Grid>
               <Grid item xs={6}>
                 <TextField
@@ -267,13 +269,13 @@ const Game = ({ match: { params: { gameId } } }) => {
                   label="Show on the public"
                 />
               </Grid>
-              {gameInfo.isPublic && (
+              {/* {gameInfo.isPublic && (
                 <Fragment>
                   <Grid item xs={12}>
                     {''}
                   </Grid>
                 </Fragment>
-              )}
+              )} */}
               <Grid item xs={12}>
                 <Button
                   gameId={gameId}

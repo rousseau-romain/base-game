@@ -25,7 +25,7 @@ const Messages = ({ history }) => {
   const [listMessage, setListMessage] = useState([]);
 
   useEffect(() => {
-    Meteor.call('rooms.getByIdUsers', ([]), (err, result) => {
+    Meteor.call('rooms.getByIdUsers.userInfo', ([]), (err, result) => {
       if (err) toast.error(err.reason);
       else setListMessage(result);
     });
@@ -35,10 +35,12 @@ const Messages = ({ history }) => {
       history={history}
       id={value._id}
       key={value._id}
-      username={value.username}
-      email={value.email}
+      username={value.userInfo.username}
+      email={value.userInfo.email}
     />
   )), [history, listMessage]);
+
+  console.log(listMessage);
 
   return (
     <div>
