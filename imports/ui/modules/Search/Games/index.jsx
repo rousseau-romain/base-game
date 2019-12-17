@@ -33,7 +33,7 @@ const Games = ({ history }) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar searchIsOpen />
       <ToastContainer position="bottom-right" />
       <List dense={false}>
         {displayGames}

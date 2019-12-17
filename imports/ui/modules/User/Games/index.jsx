@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useCallback, useMemo,
+  useState, useEffect, useCallback, useMemo, useContext,
 } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -13,16 +13,19 @@ import List from '@material-ui/core/List';
 import ButtonAdd from './ButtonAdd';
 
 import ItemGame from './ItemGame';
+import { AppContext } from '/imports/ui/context';
 
 const Games = ({ history }) => {
+  const { inputSearch } = useContext(AppContext);
+
   const [listGames, setListGames] = useState([]);
 
   useEffect(() => {
-    Meteor.call('games.get', {}, (err, result) => {
+    Meteor.call('games.get', inputSearch, (err, result) => {
       if (err) toast.error(err.reason);
       else setListGames(result);
     });
-  }, []);
+  }, [inputSearch]);
 
   const goNewGame = useCallback(() => { history.push('/user/game/new'); }, [history]);
 
@@ -67,7 +70,7 @@ const Games = ({ history }) => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar searchIsOpen />
       <ToastContainer position="bottom-right" />
       <List dense={false}>
         {displayGames}

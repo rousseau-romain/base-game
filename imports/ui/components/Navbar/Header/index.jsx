@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 
 import AppBar from '@material-ui/core/AppBar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+// eslint-disable-next-line no-unused-vars
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
@@ -14,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import { withRouter } from 'react-router-dom';
 
 
-const Header = ({ history }) => {
+const Header = ({ history, searchIsOpen }) => {
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -105,28 +106,30 @@ const Header = ({ history }) => {
           <Typography className={classes.title} variant="h6" noWrap>
             Base-Game
           </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          {searchIsOpen && (
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'Search' }}
+                onInput={e => setInputSearch(e.target.value)}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'Search' }}
-              onInput={e => setInputSearch(e.target.value)}
-            />
-          </div>
-          <IconButton
+          )}
+          {/* <IconButton
             edge="end"
             // className={classes.menuButton}
             color="inherit"
             aria-label="Open drawer"
           >
             <MoreVertIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
     </div>

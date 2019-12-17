@@ -79,8 +79,11 @@ Meteor.methods({
     return Games.findOne(id);
   },
 
-  'games.get': function () {
-    const games = Games.find({ userId: this.userId }, {
+  'games.get': function (name) {
+    let filter;
+    if (name) filter = { userId: this.userId, name: { $regex: new RegExp(name, 'i') }}
+    else filter ={ userId: this.userId }
+    const games = Games.find(filter, {
       sort: { createdAt: -1 },
       limit: 50,
       // skip: 50,
@@ -91,9 +94,9 @@ Meteor.methods({
   'games.getByName': function (name) {
     if (!this.userId) throw new Meteor.Error('403', 'You must be connected');
     const games = Games.find(
-      { 
+      {
         name: { $regex: new RegExp(name, 'i') },
-        userId: {$not: {$eq: this.userId}} 
+        userId: {$not: {$eq: this.userId}}
       },
       {
         sort: { createdAt: -1 },
