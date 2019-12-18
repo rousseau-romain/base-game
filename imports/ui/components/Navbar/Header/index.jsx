@@ -72,8 +72,12 @@ const Header = ({ history, searchIsOpen }) => {
   const {
     toggleSidebar,
     setInputSearch,
+    inputSearch,
   } = useContext(AppContext);
-  const goUrlBack = () => { history.goBack(); };
+  const goUrlBack = () => {
+    setInputSearch('');
+    history.goBack();
+  };
 
   const classes = useStyles();
   return (
@@ -118,6 +122,7 @@ const Header = ({ history, searchIsOpen }) => {
                   input: classes.inputInput,
                 }}
                 inputProps={{ 'aria-label': 'Search' }}
+                defaultValue={inputSearch}
                 onInput={e => setInputSearch(e.target.value)}
               />
             </div>

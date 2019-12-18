@@ -27,7 +27,7 @@ const Message = ({
   [id, username]);
 
   return (
-    <ListItem onClick={goUser}>
+    <ListItem>
       <ListItemAvatar>
         {displayItemImage()}
       </ListItemAvatar>

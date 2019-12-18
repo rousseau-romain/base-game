@@ -14,13 +14,12 @@ const UserSchema = new SimpleSchema({
     optional: true,
   },
   number: {
-    type: Number,
+    type: String,
     regEx: SimpleSchema.RegEx.Phone,
     optional: true,
   },
   gender: {
     type: String,
-    allowedValues: Object.values(GENDERS),
     optional: true,
   },
   username: {

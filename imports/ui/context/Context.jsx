@@ -15,6 +15,7 @@ export const Provider = (props) => {
   const [inputSearch, setInputSearch] = useState(inputSearchInitial || '');
 
   const toggleSidebar = () => {
+    setInputSearch('');
     setSidebarIsOpen(!sidebarIsOpen);
   };
 
